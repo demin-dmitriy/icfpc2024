@@ -1,5 +1,7 @@
  
 use std::fs::read_to_string;
+use std::fs::File;
+use std::io::{BufWriter, Write};
 
 #[derive(PartialEq, Clone, Copy)]
 pub struct Pos
@@ -158,7 +160,7 @@ pub fn solve_greedy_with_init(
         let nearest = get_nearest_and_remove(&current_pos, &mut positions);
 
         let new_moves = move_to(&mut current_pos, &mut current_speed, &nearest, moves);
-        match (new_moves) {
+        match new_moves {
             Some(ms) => moves = ms,
             None => return None
         }
@@ -186,7 +188,7 @@ pub fn solve_greedy_nearest_x_first(mut positions: Vec<Pos>) -> Option<Vec<u8>> 
 
     let nearest_x = get_nearest_x_and_remove(&current_pos, &mut positions);
     let new_moves = move_to(&mut current_pos, &mut current_speed, &nearest_x, moves);
-    match (new_moves) {
+    match new_moves {
         Some(ms) => moves = ms,
         None => return None
     }
@@ -206,11 +208,10 @@ pub fn solve_greedy_nearest_y_first(mut positions: Vec<Pos>) -> Option<Vec<u8>> 
 
     let nearest_y = get_nearest_y_and_remove(&current_pos, &mut positions);
     let new_moves = move_to(&mut current_pos, &mut current_speed, &nearest_y, moves);
-    match (new_moves) {
+    match new_moves {
         Some(ms) => moves = ms,
         None => return None
     }
-
 
     solve_greedy_with_init(
         positions, 
@@ -225,4 +226,19 @@ pub fn print_to_console(moves: &[u8]) {
         print!("{}", m);
     }
     println!("");
+}
+
+pub fn read_from_file(filepath: &str) -> Option<String> {
+    match std::fs::read_to_string(filepath) {
+        Ok(result) => Some(result),
+        Err(_) => None
+    }
+}
+
+pub fn write_to_file(filepath: &str, moves: &[u8]) {
+    let mut output = std::fs::File::create(filepath).unwrap();
+    let mut output = std::io::BufWriter::new(output);
+    for m in moves {
+        write!(output, "{}", m);
+    }
 }
