@@ -108,13 +108,27 @@ fn boolean_not(x: BooleanToken) -> BooleanToken {
 }
 
 fn from_big_int_to_string(x: BigUint) -> String {
-    return x.to_string();
+    let mut val = x.clone();
+    let mut res = String::new();
+    while val > BigUint::ZERO {
+        let tmp = (&val % BigUint::from(94u32))
+            .to_string()
+            .chars()
+            .nth(0)
+            .unwrap();
+        val = val / BigUint::from(94u32);
+        res.push(((tmp as u8) + ('!' as u8)) as char);
+    }
+    return res;
 }
 
 fn from_string_to_big_int(x: String) -> BigUint {
-    return BigUint::parse_bytes(x.as_bytes(), 10).unwrap();
-    // let f = x.as_bytes().into_iter().map(|x| x - ('!' as u8)).collect::<Vec<u8>>();
-    // return BigUint::parse_bytes(f.as_slice(), 94).unwrap();
+    let mut val = BigUint::from(0u32);
+    for ch in x.chars() {
+        val *= BigUint::from(94u32);
+        val += BigUint::from((ch as u8 - '!' as u8) as u32);
+    }
+    return val;
 }
 
 fn int_to_string(x: IntegerToken) -> StringToken {
@@ -440,7 +454,8 @@ fn parse(tokens: &Vec<Token>, start: usize, context: &SubstituionContext) -> Eva
                         panic!()
                     };
 
-                    let partial_result_right = parse(tokens, define_term_end(tokens, start + 2), context);
+                    let partial_result_right =
+                        parse(tokens, define_term_end(tokens, start + 2), context);
 
                     let mut new_context = context.clone();
                     new_context
@@ -483,7 +498,7 @@ fn parse(tokens: &Vec<Token>, start: usize, context: &SubstituionContext) -> Eva
 }
 
 fn main() {
-    let input = "B$ L# B$ L\" B+ v\" v\" B* I1 I2 v8";
+    let input = "B$ B$ L# L$ v# B. SB%,,/ S}Q/2,$_ IK";
 
     let mut tokens: Vec<Token> = vec![];
 
@@ -557,7 +572,7 @@ fn main() {
     match parse(&tokens, 0, &context).value {
         EvalResulToken::B(b) => {
             println!("{}", b.value);
-        },
+        }
         EvalResulToken::I(i) => {
             println!("{}", i.value.to_string());
         }
