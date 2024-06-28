@@ -113,6 +113,8 @@ fn from_big_int_to_string(x: BigUint) -> String {
 
 fn from_string_to_big_int(x: String) -> BigUint {
     return BigUint::parse_bytes(x.as_bytes(), 10).unwrap();
+    // let f = x.as_bytes().into_iter().map(|x| x - ('!' as u8)).collect::<Vec<u8>>();
+    // return BigUint::parse_bytes(f.as_slice(), 94).unwrap();
 }
 
 fn int_to_string(x: IntegerToken) -> StringToken {
@@ -295,13 +297,13 @@ fn define_term_end(tokens: &Vec<Token>, start: usize) -> usize {
         Token::U(_) => define_term_end(tokens, start + 1),
         Token::Bi(_) => {
             let first_end = define_term_end(tokens, start + 1);
-            let second_end = define_term_end(tokens, first_end + 1);
+            let second_end = define_term_end(tokens, first_end);
             second_end
         }
         Token::If(_) => {
             let first_end = define_term_end(tokens, start + 1);
-            let second_end = define_term_end(tokens, first_end + 1);
-            let third_end = define_term_end(tokens, second_end + 1);
+            let second_end = define_term_end(tokens, first_end);
+            let third_end = define_term_end(tokens, second_end);
             third_end
         }
         Token::L(_) => define_term_end(tokens, start + 1),
@@ -457,15 +459,13 @@ fn parse(tokens: &Vec<Token>, start: usize, context: &SubstituionContext) -> Eva
             let right_start = define_term_end(tokens, left_start);
 
             let partial_result_cond = parse(tokens, cond_start, context);
-            let partial_result_left = parse(tokens, left_start, context);
-            let partial_result_right = parse(tokens, right_start, context);
 
             return match partial_result_cond.value {
                 EvalResulToken::B(cond) => {
                     if cond.value {
-                        partial_result_left
+                        parse(tokens, left_start, context)
                     } else {
-                        partial_result_right
+                        parse(tokens, right_start, context)
                     }
                 }
                 _ => panic!("Not boolean"),
@@ -483,7 +483,7 @@ fn parse(tokens: &Vec<Token>, start: usize, context: &SubstituionContext) -> Eva
 }
 
 fn main() {
-    let input = "? B> I1 I2 Syes Sno";
+    let input = "B$ L# B$ L\" B+ v\" v\" B* I1 I2 v8";
 
     let mut tokens: Vec<Token> = vec![];
 
