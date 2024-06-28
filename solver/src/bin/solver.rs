@@ -4,7 +4,6 @@ use std::{ops::Sub, vec};
 
 use std::fs::File;
 use std::io::prelude::*;
-use solver;
 use std::path::Path;
 use std::collections::HashMap;
 

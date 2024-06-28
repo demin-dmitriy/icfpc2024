@@ -1,7 +1,6 @@
  
 use std::fs::read_to_string;
-use std::fs::File;
-use std::io::{BufWriter, Write};
+use std::io::{Write};
 
 #[derive(PartialEq, Clone, Copy)]
 pub struct Pos
@@ -172,7 +171,7 @@ pub fn solve_greedy_with_init(
     Some(moves)
 }
 
-pub fn solve_greedy(mut positions: Vec<Pos>) -> Option<Vec<u8>> {
+pub fn solve_greedy(positions: Vec<Pos>) -> Option<Vec<u8>> {
     solve_greedy_with_init(
         positions, 
         Pos{x: 0, y: 0}, 
@@ -236,9 +235,9 @@ pub fn read_from_file(filepath: &str) -> Option<String> {
 }
 
 pub fn write_to_file(filepath: &str, moves: &[u8]) {
-    let mut output = std::fs::File::create(filepath).unwrap();
+    let output = std::fs::File::create(filepath).unwrap();
     let mut output = std::io::BufWriter::new(output);
     for m in moves {
-        write!(output, "{}", m);
+        write!(output, "{}", m).unwrap();
     }
 }
