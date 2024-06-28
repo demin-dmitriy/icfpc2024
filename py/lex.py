@@ -133,8 +133,8 @@ def parse_prog(icfp):
 
 
 def tokens_to_str(tokens):
-    # return ' '.join(str(tok) for tok in tokens)
-    return ' '.join((repr(tok) if type(tok) is str else str(tok))  for tok in tokens)
+    return ' '.join(str(tok) for tok in tokens)
+    # return ' '.join((repr(tok) if type(tok) is str else str(tok))  for tok in tokens)
 
 
 def main():

@@ -22,20 +22,31 @@ def post(msg: str):
     ).text
 
 
+def com_raw(msg: str):
+    return post('S' + encode_string(msg))
+
+
 def com(msg :str):
-    tokens = lex.parse_prog(post('S' + encode_string(msg)))
-    return tokens
+    prog = com_raw(msg)
+    return lex.parse_prog(prog)
 
 
 def main():
     parser = ArgumentParser('com', description="Example usage: py/com.py 'get index'")
     parser.add_argument('request_string')
     parser.add_argument('--save', action='store_true')
+    parser.add_argument('--raw', action='store_true')
     args = parser.parse_args()
 
-    tokens = com(args.request_string)
+    if args.raw:
+        result = com_raw(args.request_string)
+    else:
+        tokens = com(args.request_string)
+        result = lex.tokens_to_str(tokens)
 
-    print(lex.tokens_to_str(tokens))
+
+    # print(tokens)
+    print(result)
 
     if args.save:
         (Path(__file__).parent / 'history' / args.request_string).write_text(lex.tokens_to_str(tokens))
