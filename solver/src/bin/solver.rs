@@ -1,8 +1,11 @@
 use core::panic;
-use num_bigint::BigUint;
+use num_bigint::BigInt;
 use std::{ops::Sub, vec};
 
+use std::fs::File;
+use std::io::prelude::*;
 use solver;
+use std::path::Path;
 use std::collections::HashMap;
 
 #[derive(Clone)]
@@ -17,7 +20,7 @@ struct StringToken {
 
 #[derive(Clone)]
 struct IntegerToken {
-    value: BigUint,
+    value: BigInt,
 }
 
 #[derive(Clone)]
@@ -95,11 +98,12 @@ struct EvaluationResult {
 #[derive(Clone)]
 struct SubstituionContext {
     value: HashMap<String, EvalResulToken>,
+    order: Vec<EvaluationResult>
 }
 
 fn minus_integer(x: IntegerToken) -> IntegerToken {
     return IntegerToken {
-        value: BigUint::ZERO.sub(x.value),
+        value: BigInt::ZERO.sub(x.value),
     };
 }
 
@@ -107,26 +111,33 @@ fn boolean_not(x: BooleanToken) -> BooleanToken {
     return BooleanToken { value: !x.value };
 }
 
-fn from_big_int_to_string(x: BigUint) -> String {
+fn from_big_int_to_string(x: BigInt) -> String {
     let mut val = x.clone();
     let mut res = String::new();
-    while val > BigUint::ZERO {
-        let tmp = (&val % BigUint::from(94u32))
-            .to_string()
-            .chars()
-            .nth(0)
-            .unwrap();
-        val = val / BigUint::from(94u32);
-        res.push(((tmp as u8) + ('!' as u8)) as char);
+    if val == BigInt::ZERO {
+        return "a".to_string();
     }
-    return res;
+    if val < BigInt::ZERO {
+        panic!()
+    }
+
+    while val > BigInt::ZERO {
+        let tmp = (&val % BigInt::from(94u32)).to_u32_digits().1.get(0).unwrap().clone();
+        val = val / BigInt::from(94u32);
+        res.push(((tmp + '!' as u32) as u8) as char);
+    }
+
+    return res.chars().rev().collect();
 }
 
-fn from_string_to_big_int(x: String) -> BigUint {
-    let mut val = BigUint::from(0u32);
+fn from_string_to_big_int(x: String) -> BigInt {
+    let mut val = BigInt::from(0u32);
     for ch in x.chars() {
-        val *= BigUint::from(94u32);
-        val += BigUint::from((ch as u8 - '!' as u8) as u32);
+        if ch == '-' {
+            panic!()
+        }
+        val *= BigInt::from(94u32);
+        val += BigInt::from(ch as u32 - '!' as u32);
     }
     return val;
 }
@@ -325,8 +336,7 @@ fn define_term_end(tokens: &Vec<Token>, start: usize) -> usize {
     };
 }
 
-fn parse(tokens: &Vec<Token>, start: usize, context: &SubstituionContext) -> EvaluationResult {
-    // println!("{}", start);
+fn parse(tokens: &Vec<Token>, start: usize, context: &mut SubstituionContext) -> EvaluationResult {
     match tokens.get(start).unwrap() {
         Token::B(value) => {
             return EvaluationResult {
@@ -450,19 +460,13 @@ fn parse(tokens: &Vec<Token>, start: usize, context: &SubstituionContext) -> Eva
                     drop_first_x_chars_of_string_y(partial_result_left, partial_result_right)
                 }
                 BinaryOperatorTypes::ApplyTermXToY => {
-                    let Token::L(next_token) = tokens.get(start + 1).unwrap() else {
-                        panic!()
-                    };
-
                     let partial_result_right =
-                        parse(tokens, define_term_end(tokens, start + 2), context);
+                        parse(tokens, define_term_end(tokens, start + 1), context);
 
                     let mut new_context = context.clone();
-                    new_context
-                        .value
-                        .insert(next_token.value.clone(), partial_result_right.value);
+                    new_context.order.push(partial_result_right);
 
-                    let partial_result_left = parse(tokens, start + 2, &new_context);
+                    let partial_result_left = parse(tokens, start + 1, &mut new_context);
 
                     return partial_result_left;
                 }
@@ -491,14 +495,31 @@ fn parse(tokens: &Vec<Token>, start: usize, context: &SubstituionContext) -> Eva
                 value: context.value.get(&value.value).unwrap().clone(),
             };
         }
-        Token::L(_) => {
-            panic!()
+        Token::L(value) => {
+            let f = &mut context.order;
+            context.value.insert(value.value.clone(), f.pop().unwrap().value);
+            return parse(tokens, start + 1, context);
         }
     }
 }
 
 fn main() {
-    let input = "B$ B$ L# L$ v# B. SB%,,/ S}Q/2,$_ IK";
+    // Create a path to the desired file
+    let path = Path::new("/home/maxim/work/icfpc/2024/input.txt");
+    let display = path.display();
+
+    // Open the path in read-only mode, returns `io::Result<File>`
+    let mut file = match File::open(&path) {
+        Err(why) => panic!("couldn't open {}: {}", display, why),
+        Ok(file) => file,
+    };
+
+    // Read the file contents into a string, returns `io::Result<usize>`
+    let mut input = String::new();
+    match file.read_to_string(&mut input) {
+        Err(why) => panic!("couldn't read {}: {}", display, why),
+        Ok(_) => print!("{} contains:\n{}", display, input),
+    }
 
     let mut tokens: Vec<Token> = vec![];
 
@@ -565,19 +586,22 @@ fn main() {
         }
     }
 
-    let context = SubstituionContext {
+    let mut context = SubstituionContext {
         value: HashMap::new(),
+        order: Vec::new()
     };
 
-    match parse(&tokens, 0, &context).value {
+    println!("=======================================");
+
+    match parse(&tokens, 0, &mut context).value {
         EvalResulToken::B(b) => {
-            println!("{}", b.value);
+            println!("B{}", b.value);
         }
         EvalResulToken::I(i) => {
-            println!("{}", i.value.to_string());
+            println!("I{}", from_big_int_to_string(i.value));
         }
         EvalResulToken::S(s) => {
-            println!("{}", s.value);
+            println!("S{}", s.value);
         }
     }
 }
