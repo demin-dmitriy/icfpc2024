@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 import requests
 from argparse import ArgumentParser
 from pathlib import Path
@@ -36,12 +37,18 @@ def main():
     parser.add_argument('request_string')
     parser.add_argument('--save', action='store_true')
     parser.add_argument('--raw', action='store_true')
+    parser.add_argument('--stdin', action='store_true')
     args = parser.parse_args()
 
-    if args.raw:
-        result = com_raw(args.request_string)
+    if args.stdin:
+        request_string = sys.stdin.read()
     else:
-        tokens = com(args.request_string)
+        request_string = args.request_string
+
+    if args.raw:
+        result = com_raw(request_string)
+    else:
+        tokens = com(request_string)
         result = lex.tokens_to_str(tokens)
 
 
@@ -49,7 +56,7 @@ def main():
     print(result)
 
     if args.save:
-        (Path(__file__).parent / 'history' / args.request_string).write_text(lex.tokens_to_str(tokens))
+        (Path(__file__).parent / 'history' / request_string).write_text(lex.tokens_to_str(tokens))
 
 
 if __name__ == '__main__':
