@@ -1,59 +1,60 @@
 
     <svg version="1.1"
-        width="175.8" height="160.8"
+        viewBox="-2.4, -161.4, 175.8, 161.8"
         xmlns="http://www.w3.org/2000/svg">
 
-        <rect width="100%" height="100%" style="fill:white; stroke-width:0.1; stroke: black" />
+        <rect x="-2.4" y="-161.4" width="100%" height="100%" style="fill:white; stroke-width:0.1; stroke: black" />
 
-<circle cx="0.4" cy="160.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="0.4" cy="159.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="3.4" cy="157.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="3.4" cy="156.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="4.4" cy="153.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="6.4" cy="150.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="8.4" cy="144.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="8.4" cy="141.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="13.4" cy="136.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="14.4" cy="132.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="20.4" cy="127.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="23.4" cy="123.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="31.4" cy="117.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="37.4" cy="113.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="43.4" cy="108.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="50.4" cy="104.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="57.4" cy="101.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="61.4" cy="98.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="65.4" cy="96.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="72.4" cy="93.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="76.4" cy="93.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="81.4" cy="92.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="87.4" cy="91.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="89.4" cy="88.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="92.4" cy="87.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="96.4" cy="83.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="98.4" cy="81.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="99.4" cy="77.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="102.4" cy="73.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="105.4" cy="67.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="107.4" cy="65.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="109.4" cy="59.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="111.4" cy="56.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="114.4" cy="50.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="116.4" cy="48.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="118.4" cy="44.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="120.4" cy="40.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="124.4" cy="36.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="128.4" cy="33.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="131.4" cy="28.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="135.4" cy="25.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="139.4" cy="21.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="143.4" cy="17.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="145.4" cy="14.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="151.4" cy="9.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="155.4" cy="7.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="158.4" cy="5.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="163.4" cy="3.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="167.4" cy="1.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
-<circle cx="175.4" cy="0.4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="0" cy="0" r="0.30000000000000004" fill="red" stroke="none" stroke-width="0.2"/>
+<circle cx="-2" cy="-1" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="-2" cy="-2" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="1" cy="-4" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="1" cy="-5" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="2" cy="-8" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="4" cy="-11" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="6" cy="-17" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="6" cy="-20" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="11" cy="-25" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="12" cy="-29" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="18" cy="-34" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="21" cy="-38" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="29" cy="-44" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="35" cy="-48" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="41" cy="-53" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="48" cy="-57" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="55" cy="-60" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="59" cy="-63" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="63" cy="-65" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="70" cy="-68" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="74" cy="-68" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="79" cy="-69" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="85" cy="-70" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="87" cy="-73" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="90" cy="-74" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="94" cy="-78" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="96" cy="-80" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="97" cy="-84" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="100" cy="-88" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="103" cy="-94" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="105" cy="-96" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="107" cy="-102" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="109" cy="-105" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="112" cy="-111" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="114" cy="-113" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="116" cy="-117" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="118" cy="-121" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="122" cy="-125" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="126" cy="-128" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="129" cy="-133" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="133" cy="-136" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="137" cy="-140" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="141" cy="-144" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="143" cy="-147" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="149" cy="-152" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="153" cy="-154" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="156" cy="-156" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="161" cy="-158" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="165" cy="-160" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
+<circle cx="173" cy="-161" r="0.2" fill="blue" stroke="none" stroke-width="0.2"/>
 
     </svg>
