@@ -1,6 +1,6 @@
  
 use std::fs::read_to_string;
-use std::io::{Write};
+use std::io::Write;
 
 #[derive(PartialEq, Clone, Copy)]
 pub struct Pos
