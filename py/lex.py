@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import sys
 from argparse import ArgumentParser
 from enum import Enum
 from typing import NamedTuple
@@ -126,13 +127,14 @@ def parse_token(tok):
     return Unknown(tok)
 
 
-
 def parse_prog(icfp):
     tokens = [parse_token(tok) for tok in icfp.split(' ')]
     return tokens
 
+
 def tokens_to_str(tokens):
-    return ' '.join(str(tok) for tok in tokens)
+    # return ' '.join(str(tok) for tok in tokens)
+    return ' '.join((repr(tok) if type(tok) is str else str(tok))  for tok in tokens)
 
 
 def main():
@@ -140,9 +142,12 @@ def main():
     parser.add_argument('icfp')
     args = parser.parse_args()
     icfp = args.icfp
-    print(parse_prog(icfp))
+    if icfp == '-':
+        icfp = sys.stdin.read()
+
+    # print(parse_prog(icfp))
     # print()
-    # print(tokens_to_str(parse_prog(icfp)))
+    print(tokens_to_str(parse_prog(icfp)))
 
 
 if __name__ == '__main__':

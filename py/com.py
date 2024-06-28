@@ -2,6 +2,7 @@
 
 import requests
 from argparse import ArgumentParser
+from pathlib import Path
 
 import lex
 
@@ -29,8 +30,17 @@ def com(msg :str):
 def main():
     parser = ArgumentParser('com', description="Example usage: py/com.py 'get index'")
     parser.add_argument('request_string')
+    parser.add_argument('--save', action='store_true')
     args = parser.parse_args()
-    print(lex.tokens_to_str(com(args.request_string)))
+
+    tokens = com(args.request_string)
+
+    assert len(tokens) == 1
+
+    print(tokens[0])
+
+    if args.save:
+        (Path(__file__).parent / 'history' / args.request_string).write_text(tokens[0])
 
 
 if __name__ == '__main__':
