@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import sys
 from argparse import ArgumentParser
 from enum import Enum
+from typing import NamedTuple
 
 
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;<=>?@[\]^_`|~ \n"
@@ -45,9 +45,28 @@ class Unary(Op):
     ToStr = '$' #    int-to-string: inverse of the above    U$ I4%34 -> test
 
     def __repr__(self):
-
         return self.value
 
+class Lambda(NamedTuple):
+    variable: int
+
+    def __repr__(self):
+        return f'λ#{self.variable}'
+
+
+class Var(NamedTuple):
+    variable: int
+
+    def __repr__(self):
+        return f'#{self.variable}.'
+
+
+# unknown token
+class Unknown(NamedTuple):
+    raw: str
+
+    def __repr__(self) -> str:
+        return f'Unknown({self.raw})'
 
 
 def parse_source_char(ch: str) -> int:
@@ -81,8 +100,12 @@ def parse_token(tok):
             return Binary(tok[1:])
         case 'U':
             return Unary(tok[1:])
+        case 'L':
+            return Lambda(variable=parse_int(tok[1:]))
+        case 'v':
+            return Var(variable=parse_int(tok[1:]))
 
-    return tok
+    return Unknown(tok)
 
 
 
