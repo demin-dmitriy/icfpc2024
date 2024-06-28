@@ -14,6 +14,9 @@ class Op(Enum):
 class Ternary(Op):
     If = 1
 
+    def __str__(self):
+        return self.__repr__()
+
     def __repr__(self):
         return self.name
 
@@ -34,6 +37,9 @@ class Binary(Op):
     Drop = 'D'   # Drop first x chars of string y    BD I$ S4%34 -> "t"
     Apply = '$'   # Apply term x to y (see Lambda abstractions)
 
+    def __str__(self):
+        return self.__repr__()
+
     def __repr__(self):
         return self.value
 
@@ -44,11 +50,17 @@ class Unary(Op):
     ToInt = '#' #    string-to-int: interpret a string as a base-94 number    U# S4%34 -> 15818151
     ToStr = '$' #    int-to-string: inverse of the above    U$ I4%34 -> test
 
+    def __str__(self):
+        return self.__repr__()
+
     def __repr__(self):
         return self.value
 
 class Lambda(NamedTuple):
     variable: int
+
+    def __str__(self):
+        return self.__repr__()
 
     def __repr__(self):
         return f'λ#{self.variable}'
@@ -57,6 +69,9 @@ class Lambda(NamedTuple):
 class Var(NamedTuple):
     variable: int
 
+    def __str__(self):
+        return self.__repr__()
+
     def __repr__(self):
         return f'#{self.variable}.'
 
@@ -64,6 +79,9 @@ class Var(NamedTuple):
 # unknown token
 class Unknown(NamedTuple):
     raw: str
+
+    def __str__(self):
+        return self.__repr__()
 
     def __repr__(self) -> str:
         return f'Unknown({self.raw})'
@@ -113,6 +131,9 @@ def parse_prog(icfp):
     tokens = [parse_token(tok) for tok in icfp.split(' ')]
     return tokens
 
+def tokens_to_str(tokens):
+    return ' '.join(str(tok) for tok in tokens)
+
 
 def main():
     parser = ArgumentParser('lex')
@@ -120,6 +141,8 @@ def main():
     args = parser.parse_args()
     icfp = args.icfp
     print(parse_prog(icfp))
+    # print()
+    # print(tokens_to_str(parse_prog(icfp)))
 
 
 if __name__ == '__main__':
