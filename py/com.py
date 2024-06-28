@@ -35,12 +35,10 @@ def main():
 
     tokens = com(args.request_string)
 
-    assert len(tokens) == 1
-
-    print(tokens[0])
+    print(lex.tokens_to_str(tokens))
 
     if args.save:
-        (Path(__file__).parent / 'history' / args.request_string).write_text(tokens[0])
+        (Path(__file__).parent / 'history' / args.request_string).write_text(lex.tokens_to_str(tokens))
 
 
 if __name__ == '__main__':
