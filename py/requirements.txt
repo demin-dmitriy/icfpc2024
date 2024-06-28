@@ -1,0 +1,5 @@
+numpy
+ortools
+requests
+ipykernel
+scipy
