@@ -1,15 +1,20 @@
+use std::env;
 use solver::{self, solve_spaceman_greedy::*};
 
 fn main() {
-    for i in 1..22 {
+    let args: Vec<String> = env::args().collect();
+    assert!(args.len() == 3);
+    let problems_folder = &args[1];
+    let solutions_folder = &args[2];
+    for i in 1..26 {
         if i == 22 {
             continue;
         }
-        let problem_filepath = format!("/your_folder/icfpc2024/py/history/spaceship/{}", i);
+        let problem_filepath = format!("{}/{}", problems_folder, i);
         println!("Solve {}: ", i);
         let positions = read_positions(&problem_filepath);
 
-        let solution_filepath = format!("/your_folder/icfpc2024/py/solutions/spaceship/{}", i);
+        let solution_filepath = format!("{}/{}", solutions_folder, i);
         let best_solution = read_from_file(&solution_filepath);
         
         let mut solutions = Vec::new();
@@ -24,6 +29,7 @@ fn main() {
                 Some(moves) => {
                     if moves.len() < min_score {
                         new_best_solution = Some(moves.clone());
+                        min_score = moves.len();
                     }
                 },
                 None => {
