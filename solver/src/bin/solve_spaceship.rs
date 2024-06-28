@@ -1,5 +1,5 @@
 use std::env;
-use solver::{self, solve_spaceman_greedy::*};
+use solver::{self, solve_spaceship_greedy::*};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
