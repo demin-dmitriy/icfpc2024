@@ -7,6 +7,10 @@ from typing import NamedTuple
 
 
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;<=>?@[\]^_`|~ \n"
+char_to_index = [
+    alphabet.index(chr(c)) if chr(c) in alphabet else None
+    for c in range(0, 127)
+]
 
 
 class Op(Enum):
@@ -128,7 +132,7 @@ def parse_token(tok):
 
 
 def parse_prog(icfp):
-    tokens = [parse_token(tok) for tok in icfp.split(' ')]
+    tokens = [parse_token(tok) for tok in icfp.strip().split(' ')]
     return tokens
 
 
