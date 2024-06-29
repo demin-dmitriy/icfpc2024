@@ -1,0 +1,5 @@
+len
+(
+    (λ c. ((c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c(c('na'))))))))))))))))))))))))))))) ++ 'heyjude'))
+    (λ d. (d ++ d))
+)
