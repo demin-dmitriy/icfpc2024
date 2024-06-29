@@ -6,6 +6,7 @@ from argparse import ArgumentParser
 import sys
 from typing import Any
 from dataclasses import dataclass
+sys.setrecursionlimit(20000)
 
 
 def string_to_int(s):
