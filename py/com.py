@@ -23,12 +23,15 @@ def post(msg: str):
     ).text
 
 
-def com_raw(msg: str):
-    return post('S' + encode_string(msg))
+def com_raw(msg: str, raw_req):
+    if raw_req:
+        return post(msg)
+    else:
+        return post('S' + encode_string(msg))
 
 
-def com(msg :str):
-    prog = com_raw(msg)
+def com(msg :str, raw_req):
+    prog = com_raw(msg, raw_req)
     return lex.parse_prog(prog)
 
 
@@ -37,6 +40,7 @@ def main():
     parser.add_argument('request_string', nargs='?')
     parser.add_argument('--save', action='store_true')
     parser.add_argument('--raw', action='store_true')
+    parser.add_argument('--raw-req', action='store_true')
     parser.add_argument('--stdin', action='store_true')
     parser.add_argument('--file')
 
@@ -54,9 +58,9 @@ def main():
         request_string = args.request_string
 
     if args.raw:
-        result = com_raw(request_string)
+        result = com_raw(request_string, raw_req=args.raw_req)
     else:
-        tokens = com(request_string)
+        tokens = com(request_string, raw_req=args.raw_req)
         result = lex.tokens_to_str(tokens)
 
 
