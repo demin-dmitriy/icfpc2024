@@ -115,8 +115,8 @@ fn towards_to(
     current_pos: &mut Pos,
     current_speed: &mut Pos,
     target: &Pos,
-    mut moves: Vec<u8>
-) -> Option<Vec<u8>> {
+    all_moves_count: usize
+) -> Option<u8> {
 
     let mut dist = f64::MAX;
     let mut best_move = NOOP_MOVE;
@@ -134,34 +134,38 @@ fn towards_to(
     *current_speed = new_speed;
     *current_pos = add(&current_pos, &current_speed);
     
-    moves.push(best_move.code);
-
-    if moves.len() > MOVE_LIMIT {
+    if all_moves_count + 1 > MOVE_LIMIT {
         return None;
     }
 
-    Some(moves)
+    Some(best_move.code)
 }
 
 fn move_to(
     current_pos: &mut Pos,
     current_speed: &mut Pos,
     target: &Pos,
-    mut moves: Vec<u8>
+    all_moves: &Vec<u8>
 ) -> Option<Vec<u8>> {
 
     let mut dist = f64::MAX;
+    let mut moves_to_target = Vec::new();
     while dist > 0.0 {
-        let new_moves = towards_to(current_pos, current_speed, target, moves);
-        match new_moves {
-            Some(ms) => moves = ms,
+        let new_move = towards_to(
+            current_pos, 
+            current_speed, 
+            target, 
+            all_moves.len() + moves_to_target.len()
+        );
+        match new_move {
+            Some(m) => moves_to_target.push(m),
             None => return None
         }
 
         dist = distance(&current_pos, &target);
     }
 
-    Some(moves)
+    Some(moves_to_target)
 }
 
 pub fn solve_greedy_with_init(
@@ -170,24 +174,29 @@ pub fn solve_greedy_with_init(
     init_speed: Pos,
     init_moves: Vec<u8>
 ) -> Option<Vec<u8>> {
-    let mut moves = init_moves;
+    let mut all_moves = init_moves;
     let mut current_pos = init_pos;
     let mut current_speed = init_speed;
 
     while !positions.is_empty() {
         let nearest = get_nearest_and_remove(&current_pos, &mut positions);
 
-        let new_moves = move_to(&mut current_pos, &mut current_speed, &nearest, moves);
+        let new_moves = move_to(
+            &mut current_pos, 
+            &mut current_speed, 
+            &nearest, 
+            &all_moves
+        );
         match new_moves {
-            Some(ms) => moves = ms,
+            Some(ms) => all_moves.extend_from_slice(&ms),
             None => return None
         }
-        if moves.len() > MOVE_LIMIT {
+        if all_moves.len() > MOVE_LIMIT {
             return None;
         }
     }
 
-    Some(moves)
+    Some(all_moves)
 }
 
 pub fn solve_greedy_towards_with_init(
@@ -196,16 +205,21 @@ pub fn solve_greedy_towards_with_init(
     init_speed: Pos,
     init_moves: Vec<u8>
 ) -> Option<Vec<u8>> {
-    let mut moves = init_moves;
+    let mut all_moves = init_moves;
     let mut current_pos = init_pos;
     let mut current_speed = init_speed;
 
     while !positions.is_empty() {
         let nearest = get_nearest_and_remove(&current_pos, &mut positions);
 
-        let new_moves = towards_to(&mut current_pos, &mut current_speed, &nearest, moves);
+        let new_moves = towards_to(
+            &mut current_pos, 
+            &mut current_speed, 
+            &nearest, 
+            all_moves.len()
+        );
         match new_moves {
-            Some(ms) => moves = ms,
+            Some(ms) => all_moves.push(ms),
             None => return None
         }
         if current_pos != nearest {
@@ -213,7 +227,7 @@ pub fn solve_greedy_towards_with_init(
         }
     }
 
-    Some(moves)
+    Some(all_moves)
 }
 
 pub fn solve_greedy(positions: Vec<Pos>) -> Option<Vec<u8>> {
@@ -226,14 +240,14 @@ pub fn solve_greedy(positions: Vec<Pos>) -> Option<Vec<u8>> {
 }
 
 pub fn solve_greedy_nearest_x_first(mut positions: Vec<Pos>) -> Option<Vec<u8>> {
-    let mut moves = Vec::new();
+    let mut all_moves = Vec::new();
     let mut current_pos = Pos{x: 0, y: 0};
     let mut current_speed = Pos{x: 0, y: 0};
 
     let nearest_x = get_nearest_x_and_remove(&current_pos, &mut positions);
-    let new_moves = move_to(&mut current_pos, &mut current_speed, &nearest_x, moves);
+    let new_moves = move_to(&mut current_pos, &mut current_speed, &nearest_x, &all_moves);
     match new_moves {
-        Some(ms) => moves = ms,
+        Some(ms) => all_moves.extend_from_slice(&ms),
         None => return None
     }
 
@@ -241,19 +255,19 @@ pub fn solve_greedy_nearest_x_first(mut positions: Vec<Pos>) -> Option<Vec<u8>> 
         positions, 
         current_pos, 
         current_speed,        
-        moves
+        all_moves
     )
 }
 
 pub fn solve_greedy_nearest_y_first(mut positions: Vec<Pos>) -> Option<Vec<u8>> {
-    let mut moves = Vec::new();
+    let mut all_moves = Vec::new();
     let mut current_pos = Pos{x: 0, y: 0};
     let mut current_speed = Pos{x: 0, y: 0};
 
     let nearest_y = get_nearest_y_and_remove(&current_pos, &mut positions);
-    let new_moves = move_to(&mut current_pos, &mut current_speed, &nearest_y, moves);
+    let new_moves = move_to(&mut current_pos, &mut current_speed, &nearest_y, &all_moves);
     match new_moves {
-        Some(ms) => moves = ms,
+        Some(ms) => all_moves.extend_from_slice(&ms),
         None => return None
     }
 
@@ -261,7 +275,7 @@ pub fn solve_greedy_nearest_y_first(mut positions: Vec<Pos>) -> Option<Vec<u8>> 
         positions, 
         current_pos, 
         current_speed,        
-        moves
+        all_moves
     )
 }
 
@@ -272,6 +286,120 @@ pub fn solve_greedy_towards(positions: Vec<Pos>) -> Option<Vec<u8>> {
         Pos{x: 0, y: 0},
         Vec::new()
     )
+}
+
+fn move_min_to(
+    current_pos: &Pos,
+    current_speed: &Pos,
+    target: &Pos,
+    current_best: &mut Option<Vec<u8>>,
+    best_move_pos: &mut Pos,
+    best_move_speed: &mut Pos,
+    current_moves: &Vec<u8>,
+    all_moves_count: usize
+) {
+    if current_moves.len() > 5 {
+        return;
+    }
+    if all_moves_count + current_moves.len() > MOVE_LIMIT {
+        return;
+    }
+
+    match current_best {
+        Some(best) => {
+            if current_moves.len() >= best.len() {
+                return;
+            }
+        },
+        None => { }
+    }
+
+    let noop_speed = Pos{x: 0, y: 0};
+
+    for m in ALL_MOVES {
+        let new_speed = add(&current_speed, &m.diff);
+        if new_speed == noop_speed {
+            continue;
+        }
+
+        let new_pos = add(&current_pos, &new_speed);
+        if new_pos == *target {
+            match current_best {
+                Some(best) => {
+                    if current_moves.len() + 1 < best.len() {
+                        let mut moves = current_moves.clone();
+                        moves.push(m.code);
+                        *current_best = Some(moves);
+                        *best_move_pos = new_pos;
+                        *best_move_speed = new_speed;
+                    }
+                },
+                None => {
+                    let mut moves = current_moves.clone();
+                    moves.push(m.code);
+                    *current_best = Some(moves);
+                }
+            }
+            return;
+        }
+
+        let mut moves = current_moves.clone();
+        moves.push(m.code);
+        move_min_to(
+            &new_pos, 
+            &new_speed, 
+            target, 
+            current_best,
+            best_move_pos,
+            best_move_speed,
+            &moves,
+            all_moves_count
+        );
+    }
+}
+
+pub fn solve_greedy_try_min(mut positions: Vec<Pos>) -> Option<Vec<u8>>  {
+    let mut all_moves = Vec::new();
+    let mut current_pos = Pos{x: 0, y: 0};
+    let mut current_speed = Pos{x: 0, y: 0};
+
+    while !positions.is_empty() {
+        let nearest = get_nearest_and_remove(&current_pos, &mut positions);
+
+        let mut best_move_pos = current_pos;
+        let mut best_move_speed = current_speed;
+        let mut current_best = move_to(
+            &mut best_move_pos, 
+            &mut best_move_speed, 
+            &nearest, 
+            &all_moves
+        );
+
+        move_min_to(
+            &current_pos, 
+            &current_speed, 
+            &nearest, 
+            &mut current_best, 
+            &mut best_move_pos, 
+            &mut best_move_speed, 
+            &Vec::new(), 
+            all_moves.len()
+        );
+
+        match current_best {
+            Some(ms) => {
+                all_moves.extend_from_slice(&ms);
+                current_pos = best_move_pos;
+                current_speed = best_move_speed;
+            },
+            None => return None
+        }
+        if all_moves.len() > MOVE_LIMIT {
+            return None;
+        }
+    }
+
+    Some(all_moves)
 }
 
 pub fn print_to_console(moves: &[u8]) {

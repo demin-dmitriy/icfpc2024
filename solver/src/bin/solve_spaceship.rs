@@ -18,10 +18,11 @@ fn main() {
         let best_solution = read_from_file(&solution_filepath);
         
         let mut solutions = Vec::new();
-        solutions.push(solve_greedy(positions.clone()));
-        solutions.push(solve_greedy_nearest_x_first(positions.clone()));
-        solutions.push(solve_greedy_nearest_y_first(positions.clone()));
-        solutions.push(solve_greedy_towards(positions.clone()));
+        //solutions.push(solve_greedy(positions.clone()));
+        //solutions.push(solve_greedy_nearest_x_first(positions.clone()));
+        //solutions.push(solve_greedy_nearest_y_first(positions.clone()));
+        //solutions.push(solve_greedy_towards(positions.clone()));
+        solutions.push(solve_greedy_try_min(positions.clone()));
 
         let mut min_score = usize::MAX;
         let mut new_best_solution: Option<Vec<u8>> = None;
