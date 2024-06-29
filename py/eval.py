@@ -152,6 +152,12 @@ def eval_tokens(tokens, ctx: dict[str, np.array]):
                 print(tok, type(tok))
                 assert False, f'Unknown token {tok}'
 
+def paren(tokens):
+    s = pprint(tokens)
+    if len(tokens) == 1:
+        return f'{s}'
+    return f'({s})'
+
 
 def pprint(tokens):
     tokens = np.array(tokens, dtype=np.dtype(object))
@@ -175,38 +181,38 @@ def pprint(tokens):
 
         match tok:
             case lex.Binary.Add:
-                return f'({pprint(arg1)}) + ({pprint(arg2)})'
+                return f'{paren(arg1)} + {paren(arg2)}'
             case lex.Binary.Sub:
-                return f'({pprint(arg1)}) - ({pprint(arg2)})'
+                return f'{paren(arg1)} - {paren(arg2)}'
             case lex.Binary.Mul:
-                return f'({pprint(arg1)}) * ({pprint(arg2)})'
+                return f'{paren(arg1)} * {paren(arg2)}'
             case lex.Binary.Div:
-                return f'({pprint(arg1)}) / ({pprint(arg2)})'
+                return f'{paren(arg1)} / {paren(arg2)}'
             case lex.Binary.Mod:
-                return f'({pprint(arg1)}) % ({pprint(arg2)})'
+                return f'{paren(arg1)} % {paren(arg2)}'
             case lex.Binary.Less:
-                return f'({pprint(arg1)}) < ({pprint(arg2)})'
+                return f'{paren(arg1)} < {paren(arg2)}'
             case lex.Binary.Greater:
-                return f'({pprint(arg1)}) > ({pprint(arg2)})'
+                return f'{paren(arg1)} > {paren(arg2)}'
             case lex.Binary.Eq:
-                return f'({pprint(arg1)}) == ({pprint(arg2)})'
+                return f'{paren(arg1)} == {paren(arg2)}'
             case lex.Binary.Or:
-                return f'({pprint(arg1)}) or ({pprint(arg2)})'
+                return f'{paren(arg1)} or {paren(arg2)}'
             case lex.Binary.And:
-                return f'({pprint(arg1)}) and ({pprint(arg2)})'
+                return f'{paren(arg1)} and {paren(arg2)}'
             case lex.Binary.Concat:
-                return f'({pprint(arg1)}) ++ ({pprint(arg2)})'
+                return f'{paren(arg1)} ++ {paren(arg2)}'
             case lex.Binary.Take:
                 return f'take({pprint(arg1)}, {pprint(arg2)})'
             case lex.Binary.Drop:
                 return f'drop({pprint(arg1)}, {pprint(arg2)})'
             case lex.Binary.Apply:
-                return f'({pprint(arg1)})({pprint(arg2)})'
+                return f'{paren(arg1)}({pprint(arg2)})'
 
             case lex.Unary.Neg:
-                return f'-{pprint(arg1)}'
+                return f'-{paren(arg1)}'
             case lex.Unary.Not:
-                return f'not {pprint(arg1)}'
+                return f'not {paren(arg1)}'
             case lex.Unary.ToInt:
                 return f'to_int({pprint(arg1)})'
             case lex.Unary.ToStr:
@@ -217,7 +223,7 @@ def pprint(tokens):
 
             case _:
                 if isinstance(tok, lex.Lambda):
-                    return f'λ {tok.variable}. {pprint(arg1)}'
+                    return f'λ {tok.variable}. {paren(arg1)}'
                 elif isinstance(tok, lex.Var):
                     return f'{tok.variable}'
                 elif isinstance(tok, (int, str, bool)):
@@ -228,9 +234,9 @@ def pprint(tokens):
 
 
 def pretty_rename(tokens):
-    available_names = {
-        'x', 'y', 'z', 'w', 'u', 'v', 's', 't'
-    }
+    available_names = [
+        'x', 'y', 'z', 'w', 'u', 'v', 's', 't', 'a', 'b', 'c', 'd'
+    ]
 
     mapping = {}
 
