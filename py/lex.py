@@ -106,6 +106,24 @@ def parse_string(s: str):
         for i in s
     )
 
+def encode_int(v: int):
+    r = []
+    while v != 0:
+        v, ch = divmod(v, 94)
+        r.append(chr(ch + 33))
+
+    if len(r) == 0:
+        r = [chr(33)]
+
+    return ''.join(reversed(r))
+
+
+def encode_string(s: str):
+    return ''.join(
+        chr(char_to_index[ord(ch)] + 33)
+        for ch in s
+    )
+
 
 def parse_token(tok):
     match tok[0]:
@@ -149,11 +167,10 @@ def main():
     if icfp == '-':
         icfp = sys.stdin.read()
 
-    # print(parse_prog(icfp))
+    print(parse_prog(icfp))
     # print()
-    print(tokens_to_str(parse_prog(icfp)))
+    #print(tokens_to_str(parse_prog(icfp)))
 
 
 if __name__ == '__main__':
     main()
-
