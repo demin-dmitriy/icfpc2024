@@ -32,7 +32,9 @@ class Lambdaman:
             for i, point in enumerate(self.points)
         }
 
+        print('adjency_matrix')
         self.__calc_adjency_matrix()
+        print('distance matrix')
         self.__calc_distance_matrix()
 
     def task_to_text(self):
