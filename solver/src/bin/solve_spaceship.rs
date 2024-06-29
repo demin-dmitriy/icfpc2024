@@ -11,10 +11,11 @@ fn run_solvers(
     let best_solution = read_from_file(&solution_filepath);
     
     let mut solvers: Vec<(&str, fn(Vec<Pos>) -> Option<Vec<Step>>)> = Vec::new();
-    solvers.push(("Greedy max speed", solve_greedy));
-    solvers.push(("Greedy move towards", solve_greedy_towards));
-    solvers.push(("Greedy try min, fallback max speed", solve_greedy_try_min));
-    solvers.push(("Greedy try min, fallback towards", solve_greedy_try_min_and_towards));
+    //solvers.push(("Greedy max speed", solve_greedy));
+    //solvers.push(("Greedy move towards", solve_greedy_towards));
+    //solvers.push(("Greedy try min, fallback max speed", solve_greedy_try_min));
+    //solvers.push(("Greedy try min, fallback towards", solve_greedy_try_min_and_towards));
+    solvers.push(("Greedy use quadtree, try min, fallback towards", solve_greedy_quadtree_try_min_and_towards));
 
     let mut min_score = usize::MAX;
     let mut new_best_solution: Option<Vec<Step>> = None;

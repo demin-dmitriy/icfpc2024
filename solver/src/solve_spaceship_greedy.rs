@@ -2,6 +2,8 @@
 use std::fs::read_to_string;
 use std::io::Write;
 
+use quadtree_rs::{area::AreaBuilder, point::Point, Quadtree};
+
 #[derive(PartialEq, Clone, Copy)]
 pub struct Pos
 {
@@ -363,6 +365,95 @@ pub fn solve_greedy_try_min_and_towards(mut positions: Vec<Pos>) -> Option<Vec<S
                 current_speed = all_moves.last().unwrap().result_speed;
                 if current_pos != nearest {
                     positions.push(nearest)
+                }
+            }
+        }
+        if all_moves.len() > MOVE_LIMIT {
+            return None;
+        }
+    }
+
+    Some(all_moves)
+}
+
+pub fn solve_greedy_quadtree_try_min_and_towards(positions: Vec<Pos>) -> Option<Vec<Step>>  {
+    let mut all_moves = Vec::new();
+    let mut current_pos = Pos{x: 0, y: 0};
+    let mut current_speed = Pos{x: 0, y: 0};
+
+    let mut padding_x = 0;
+    let mut padding_y = 0;
+    for pos in &positions {
+        padding_x = padding_x.min(pos.x);
+        padding_y = padding_y.min(pos.y);
+    }
+    padding_x = -padding_x;
+    padding_y = -padding_y;
+
+    let mut qt = Quadtree::<i64, Pos>::new(30);
+    for pos in &positions {
+        qt.insert_pt(Point{x: padding_x + pos.x, y: padding_y + pos.y}, pos.clone());
+    }
+
+    while !qt.is_empty() {
+        let mut search_region_size = 10;
+        let mut points_near = Vec::new();
+        while points_near.is_empty() {            
+            let region = AreaBuilder::default()
+                .anchor(
+                    Point{
+                        x: (padding_x + current_pos.x - search_region_size / 2).max(0), 
+                        y: (padding_y + current_pos.y - search_region_size / 2).max(0)
+                    }
+                )
+                .dimensions((search_region_size, search_region_size))
+                .build().unwrap();
+            let query = qt.query(region);
+            for v in query {
+                points_near.push(v.value_ref().clone());
+            }
+
+            if points_near.is_empty() {
+                search_region_size += 5;
+            }
+        }
+        let nearest = get_nearest_and_remove(&current_pos, &mut points_near);
+        {
+            let region = AreaBuilder::default()
+                .anchor(Point{x: padding_x + nearest.x, y: padding_y + nearest.y})
+                .dimensions((1, 1))
+                .build().unwrap();
+            qt.delete(region);
+        }
+
+        let mut current_best = None;
+
+        move_min_to(
+            &current_pos, 
+            &current_speed, 
+            &nearest, 
+            &mut current_best, 
+            &Vec::new(), 
+            all_moves.len()
+        );
+
+        match current_best {
+            Some(ms) => {
+                all_moves.extend_from_slice(&ms);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+            },
+            None => {
+                let new_move = towards_to(
+                    &current_pos, 
+                    &current_speed, 
+                    &nearest
+                );
+                all_moves.push(new_move);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+                if current_pos != nearest {
+                    qt.insert_pt(Point{x: padding_x + nearest.x, y: padding_y + nearest.y}, nearest);
                 }
             }
         }

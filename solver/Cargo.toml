@@ -17,3 +17,4 @@ reqwest = { version = "0.12.5", features = ["stream", "blocking"]}
 clap = { version = "4.5.6", features = ["derive"] }
 threadpool = "1.8"
 nonzero_lit = "0.1"
+quadtree_rs = "0.1.3"
