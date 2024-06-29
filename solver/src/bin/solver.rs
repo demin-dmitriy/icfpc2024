@@ -1,4 +1,5 @@
 use core::panic;
+use clap::Parser;
 use num_bigint::BigInt;
 use std::{ops::Sub, vec};
 
@@ -7,34 +8,34 @@ use std::io::prelude::*;
 use std::path::Path;
 use std::collections::HashMap;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct BooleanToken {
     value: bool,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct StringToken {
     value: String,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct IntegerToken {
     value: BigInt,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct VariableToken {
     value: String,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 enum UnaryOperatorTypes {
     IntegerNegation,
     BooleanNot,
     StringToInt,
     IntToString,
 }
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 enum BinaryOperatorTypes {
     IntegerAddition,
     IntegerSubtraction,
@@ -52,25 +53,25 @@ enum BinaryOperatorTypes {
     ApplyTermXToY,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct UnaryOperatorToken {
     value: UnaryOperatorTypes,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct BinaryOperatorToken {
     value: BinaryOperatorTypes,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct IfToken {}
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct LambdaToken {
     value: String,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 enum Token {
     B(BooleanToken),
     I(IntegerToken),
@@ -82,19 +83,19 @@ enum Token {
     V(VariableToken),
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 enum EvalResulToken {
     B(BooleanToken),
     I(IntegerToken),
     S(StringToken),
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct EvaluationResult {
     value: EvalResulToken,
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct SubstituionContext {
     value: HashMap<String, EvalResulToken>,
     order: Vec<EvaluationResult>
@@ -131,12 +132,12 @@ fn from_big_int_to_string(x: BigInt) -> String {
 
 fn from_string_to_big_int(x: String) -> BigInt {
     let mut val = BigInt::from(0u32);
-    for ch in x.chars() {
-        if ch == '-' {
+    for &ch in x.as_bytes() {
+        if ch == b'-' {
             panic!()
         }
         val *= BigInt::from(94u32);
-        val += BigInt::from(ch as u32 - '!' as u32);
+        val += BigInt::from(ch - b'!');
     }
     return val;
 }
@@ -502,9 +503,17 @@ fn parse(tokens: &Vec<Token>, start: usize, context: &mut SubstituionContext) ->
     }
 }
 
+
+#[derive(Parser, Debug)]
+struct Cli {
+    pub path: String,
+}
+
+
 fn main() {
-    // Create a path to the desired file
-    let path = Path::new("/home/maxim/work/icfpc/2024/input.txt");
+    let cli = Cli::parse();
+
+    let path = Path::new(&cli.path);
     let display = path.display();
 
     // Open the path in read-only mode, returns `io::Result<File>`
@@ -522,7 +531,7 @@ fn main() {
 
     let mut tokens: Vec<Token> = vec![];
 
-    for lexema in input.split(' ') {
+    for lexema in input.trim().split(' ') {
         match lexema.chars().nth(0).unwrap() {
             'T' => {
                 tokens.push(Token::B(BooleanToken { value: true }));
