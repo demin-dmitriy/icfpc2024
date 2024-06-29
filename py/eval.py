@@ -93,7 +93,6 @@ def eval_tokens(tokens, ctx: dict[str, np.array]):
 
         match tok:
             case lex.Binary.Add:
-                print(arg1, '+', arg2)
                 return eval_head(arg1, ctx) + eval_head(arg2, ctx)
             case lex.Binary.Sub:
                 return eval_head(arg1, ctx) - eval_head(arg2, ctx)
