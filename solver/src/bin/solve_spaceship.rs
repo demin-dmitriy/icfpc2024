@@ -16,16 +16,16 @@ fn main() {
         
         let mut solutions = Vec::new();
         //solutions.push(solve_greedy(positions.clone()));
-        //solutions.push(solve_greedy_nearest_x_first(positions.clone()));
-        //solutions.push(solve_greedy_nearest_y_first(positions.clone()));
         //solutions.push(solve_greedy_towards(positions.clone()));
-        solutions.push(solve_greedy_try_min(positions.clone()));
+        //solutions.push(solve_greedy_try_min(positions.clone()));
+        solutions.push(solve_greedy_try_min_and_towards(positions.clone()));
 
         let mut min_score = usize::MAX;
-        let mut new_best_solution: Option<Vec<u8>> = None;
+        let mut new_best_solution: Option<Vec<Step>> = None;
         for solution in solutions.iter() {
             match solution {
                 Some(moves) => {
+                    println!("Score {}", moves.len());
                     if moves.len() < min_score {
                         new_best_solution = Some(moves.clone());
                         min_score = moves.len();
