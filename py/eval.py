@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 import sys
 from typing import Any
 from dataclasses import dataclass
-sys.setrecursionlimit(20000)
+sys.setrecursionlimit(15000)
 
 
 def string_to_int(s):
@@ -45,6 +45,12 @@ def get_subtree(tokens):
 
     assert False
 
+def is_y_combinator(tokens):
+    print('Candidate:', tokens)
+
+    return False
+    pass
+
 
 @dataclass
 class Lazy:
@@ -58,16 +64,16 @@ class Lazy:
         return self.evaluated_expr
 
 
+
+
 def eval_head(tokens, ctx: dict[str, np.array]):
     v = eval_tokens(tokens, ctx)
-    while isinstance(v, Lazy):
-        v = v.value()
+    # while isinstance(v, Lazy):
+    #     v = v.value()
     return v
 
 
 def eval_tokens(tokens, ctx: dict[str, np.array]):
-    tokens = np.array(tokens, dtype=np.dtype(object))
-
     assert len(get_subtree(tokens)) == len(tokens)
 
     for i, tok in enumerate(tokens):
@@ -87,6 +93,7 @@ def eval_tokens(tokens, ctx: dict[str, np.array]):
 
         match tok:
             case lex.Binary.Add:
+                print(arg1, '+', arg2)
                 return eval_head(arg1, ctx) + eval_head(arg2, ctx)
             case lex.Binary.Sub:
                 return eval_head(arg1, ctx) - eval_head(arg2, ctx)
@@ -121,8 +128,7 @@ def eval_tokens(tokens, ctx: dict[str, np.array]):
             case lex.Binary.Drop:
                 return eval_head(arg2, ctx)[eval_head(arg1, ctx):]
             case lex.Binary.Apply:
-                return eval_head(arg1, ctx)(Lazy(None, arg2, ctx))
-
+                return eval_head(arg1, ctx)(eval_head(arg2, ctx))
             case lex.Unary.Neg:
                 return -eval_head(arg1, ctx)
             case lex.Unary.Not:
@@ -211,15 +217,30 @@ def pprint(tokens):
 
             case _:
                 if isinstance(tok, lex.Lambda):
-                    return f'λ #{tok.variable}. {pprint(arg1)}'
+                    return f'λ {tok.variable}. {pprint(arg1)}'
                 elif isinstance(tok, lex.Var):
-                    return f'#{tok.variable}'
+                    return f'{tok.variable}'
                 elif isinstance(tok, (int, str, bool)):
                     return repr(tok)
 
                 assert False, f'Unknown token tok={tok}, type={type(tok)}'
     tokens = np.array(tokens, dtype=np.dtype(object))
 
+
+def pretty_rename(tokens):
+    available_names = {
+        'x', 'y', 'z', 'w', 'u', 'v', 's', 't'
+    }
+
+    mapping = {}
+
+    for token in tokens:
+        if isinstance(token, (lex.Lambda, lex.Var)):
+            var_name = token.variable
+            if var_name not in mapping and available_names:
+                mapping[var_name] = available_names.pop()
+
+            token.variable = mapping.get(var_name, var_name)
 
 
 def main():
@@ -243,9 +264,12 @@ def main():
         icfp = args.icfp
 
     if args.pprint:
-        print(pprint(lex.parse_prog(icfp)))
+        tokens = lex.parse_prog(icfp)
+        pretty_rename(tokens)
+        print(pprint(tokens))
     else:
         tokens = lex.parse_prog(icfp)
+        tokens = np.array(tokens, dtype=np.dtype(object))
         result = eval_tokens(tokens, {})
         print(result)
 

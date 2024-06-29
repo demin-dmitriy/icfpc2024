@@ -3,7 +3,7 @@
 import sys
 from argparse import ArgumentParser
 from enum import Enum
-from typing import NamedTuple
+from dataclasses import dataclass
 
 
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;<=>?@[\]^_`|~ \n"
@@ -61,7 +61,8 @@ class Unary(Op):
     def __repr__(self):
         return self.value
 
-class Lambda(NamedTuple):
+@dataclass
+class Lambda:
     variable: int
 
     def __str__(self):
@@ -71,7 +72,8 @@ class Lambda(NamedTuple):
         return f'λ#{self.variable}'
 
 
-class Var(NamedTuple):
+@dataclass
+class Var:
     variable: int
 
     def __str__(self):
@@ -82,7 +84,8 @@ class Var(NamedTuple):
 
 
 # unknown token
-class Unknown(NamedTuple):
+@dataclass
+class Unknown:
     raw: str
 
     def __str__(self):
