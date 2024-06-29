@@ -96,7 +96,7 @@ struct Move {
     code: u8
 }
 
-fn move_to(
+fn towards_to(
     current_pos: &mut Pos,
     current_speed: &mut Pos,
     target: &Pos,
@@ -116,30 +116,50 @@ fn move_to(
     ];
 
     let mut dist = f64::MAX;
+    let mut best_move = noop_move;
+    for m in all_moves.iter() {
+        let new_speed = add(&current_speed, &m.diff);
+        let new_pos = add(&current_pos, &new_speed);
+        let new_dist = distance(&new_pos, &target);
+        if new_dist < dist {
+            best_move = m.clone();
+            dist = new_dist;
+        }
+    }
+
+    let new_speed = add(&current_speed, &best_move.diff);
+    *current_speed = new_speed;
+    *current_pos = add(&current_pos, &current_speed);
+    
+    moves.push(best_move.code);
+
+    dist = distance(&current_pos, &target);
+
+    if moves.len() > 1000000 {
+        return None;
+    }
+
+    Some(moves)
+}
+
+fn move_to(
+    current_pos: &mut Pos,
+    current_speed: &mut Pos,
+    target: &Pos,
+    mut moves: Vec<u8>
+) -> Option<Vec<u8>> {
+
+    let mut dist = f64::MAX;
     while dist > 0.0 {
         dist = f64::MAX;
-        let mut best_move = noop_move;
-        for m in all_moves.iter() {
-            let new_speed = add(&current_speed, &m.diff);
-            let new_pos = add(&current_pos, &new_speed);
-            let new_dist = distance(&new_pos, &target);
-            if new_dist < dist {
-                best_move = m.clone();
-                dist = new_dist;
-            }
-        }
-
-        let new_speed = add(&current_speed, &best_move.diff);
-        *current_speed = new_speed;
-        *current_pos = add(&current_pos, &current_speed);
         
-        moves.push(best_move.code);
+        let new_moves = towards_to(current_pos, current_speed, target, moves);
+        match new_moves {
+            Some(ms) => moves = ms,
+            None => return None
+        }
 
         dist = distance(&current_pos, &target);
-
-        if moves.len() > 1000000 {
-            return None;
-        }
     }
 
     Some(moves)
@@ -165,6 +185,32 @@ pub fn solve_greedy_with_init(
         }
         if moves.len() > 1000000 {
             return None;
+        }
+    }
+
+    Some(moves)
+}
+
+pub fn solve_greedy_towards_with_init(
+    mut positions: Vec<Pos>,
+    init_pos: Pos,
+    init_speed: Pos,
+    init_moves: Vec<u8>
+) -> Option<Vec<u8>> {
+    let mut moves = init_moves;
+    let mut current_pos = init_pos;
+    let mut current_speed = init_speed;
+
+    while !positions.is_empty() {
+        let nearest = get_nearest_and_remove(&current_pos, &mut positions);
+
+        let new_moves = towards_to(&mut current_pos, &mut current_speed, &nearest, moves);
+        match new_moves {
+            Some(ms) => moves = ms,
+            None => return None
+        }
+        if current_pos != nearest {
+            positions.push(nearest)
         }
     }
 
@@ -217,6 +263,15 @@ pub fn solve_greedy_nearest_y_first(mut positions: Vec<Pos>) -> Option<Vec<u8>> 
         current_pos, 
         current_speed,        
         moves
+    )
+}
+
+pub fn solve_greedy_towards(positions: Vec<Pos>) -> Option<Vec<u8>> {
+    solve_greedy_towards_with_init(
+        positions, 
+        Pos{x: 0, y: 0}, 
+        Pos{x: 0, y: 0},
+        Vec::new()
     )
 }
 

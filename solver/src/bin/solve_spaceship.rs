@@ -21,6 +21,7 @@ fn main() {
         solutions.push(solve_greedy(positions.clone()));
         solutions.push(solve_greedy_nearest_x_first(positions.clone()));
         solutions.push(solve_greedy_nearest_y_first(positions.clone()));
+        solutions.push(solve_greedy_towards(positions.clone()));
 
         let mut min_score = usize::MAX;
         let mut new_best_solution: Option<Vec<u8>> = None;

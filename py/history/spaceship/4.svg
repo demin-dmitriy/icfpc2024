@@ -236,9 +236,9 @@
 <circle cx="-168" cy="-176" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="-168" y1="-176" x2="-168" y2="-176" stroke="black" stroke-width="0.1" />
 <circle cx="-168" cy="-176" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="-168" y1="-176" x2="-167" y2="-175" stroke="black" stroke-width="0.1" />
-<circle cx="-167" cy="-175" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="-167" y1="-175" x2="-167" y2="-173" stroke="black" stroke-width="0.1" />
+<line x1="-168" y1="-176" x2="-168" y2="-175" stroke="black" stroke-width="0.1" />
+<circle cx="-168" cy="-175" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="-168" y1="-175" x2="-167" y2="-173" stroke="black" stroke-width="0.1" />
 <circle cx="-167" cy="-173" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="-167" y1="-173" x2="-167" y2="-172" stroke="black" stroke-width="0.1" />
 <circle cx="-167" cy="-172" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
@@ -316,7 +316,5 @@
 <circle cx="-177" cy="-178" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="-177" y1="-178" x2="-172" y2="-177" stroke="black" stroke-width="0.1" />
 <circle cx="-172" cy="-177" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="-172" y1="-177" x2="-168" y2="-175" stroke="black" stroke-width="0.1" />
-<circle cx="-168" cy="-175" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
 
     </svg>
