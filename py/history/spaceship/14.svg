@@ -112,129 +112,31 @@
 <circle cx="3" cy="3" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="3" y1="3" x2="6" y2="6" stroke="black" stroke-width="0.1" />
 <circle cx="6" cy="6" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="6" y1="6" x2="10" y2="10" stroke="black" stroke-width="0.1" />
-<circle cx="10" cy="10" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="10" y1="10" x2="15" y2="15" stroke="black" stroke-width="0.1" />
-<circle cx="15" cy="15" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="15" y1="15" x2="21" y2="21" stroke="black" stroke-width="0.1" />
-<circle cx="21" cy="21" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="21" y1="21" x2="26" y2="26" stroke="black" stroke-width="0.1" />
-<circle cx="26" cy="26" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="26" y1="26" x2="30" y2="30" stroke="black" stroke-width="0.1" />
-<circle cx="30" cy="30" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="30" y1="30" x2="33" y2="33" stroke="black" stroke-width="0.1" />
-<circle cx="33" cy="33" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="33" y1="33" x2="35" y2="35" stroke="black" stroke-width="0.1" />
-<circle cx="35" cy="35" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="35" y1="35" x2="36" y2="36" stroke="black" stroke-width="0.1" />
-<circle cx="36" cy="36" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="36" y1="36" x2="36" y2="36" stroke="black" stroke-width="0.1" />
-<circle cx="36" cy="36" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="36" y1="36" x2="35" y2="35" stroke="black" stroke-width="0.1" />
-<circle cx="35" cy="35" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="35" y1="35" x2="33" y2="33" stroke="black" stroke-width="0.1" />
-<circle cx="33" cy="33" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="33" y1="33" x2="30" y2="30" stroke="black" stroke-width="0.1" />
-<circle cx="30" cy="30" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="30" y1="30" x2="26" y2="26" stroke="black" stroke-width="0.1" />
-<circle cx="26" cy="26" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="26" y1="26" x2="23" y2="23" stroke="black" stroke-width="0.1" />
-<circle cx="23" cy="23" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="23" y1="23" x2="21" y2="21" stroke="black" stroke-width="0.1" />
-<circle cx="21" cy="21" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="21" y1="21" x2="20" y2="20" stroke="black" stroke-width="0.1" />
-<circle cx="20" cy="20" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="20" y1="20" x2="20" y2="20" stroke="black" stroke-width="0.1" />
-<circle cx="20" cy="20" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="20" y1="20" x2="21" y2="21" stroke="black" stroke-width="0.1" />
-<circle cx="21" cy="21" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="21" y1="21" x2="23" y2="23" stroke="black" stroke-width="0.1" />
-<circle cx="23" cy="23" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="23" y1="23" x2="24" y2="24" stroke="black" stroke-width="0.1" />
-<circle cx="24" cy="24" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="24" y1="24" x2="24" y2="24" stroke="black" stroke-width="0.1" />
-<circle cx="24" cy="24" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="24" y1="24" x2="24" y2="23" stroke="black" stroke-width="0.1" />
+<line x1="6" y1="6" x2="9" y2="9" stroke="black" stroke-width="0.1" />
+<circle cx="9" cy="9" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="9" y1="9" x2="13" y2="13" stroke="black" stroke-width="0.1" />
+<circle cx="13" cy="13" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="13" y1="13" x2="18" y2="18" stroke="black" stroke-width="0.1" />
+<circle cx="18" cy="18" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="18" y1="18" x2="24" y2="23" stroke="black" stroke-width="0.1" />
 <circle cx="24" cy="23" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="24" y1="23" x2="25" y2="23" stroke="black" stroke-width="0.1" />
-<circle cx="25" cy="23" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="25" y1="23" x2="27" y2="24" stroke="black" stroke-width="0.1" />
-<circle cx="27" cy="24" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="27" y1="24" x2="30" y2="26" stroke="black" stroke-width="0.1" />
-<circle cx="30" cy="26" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="30" y1="26" x2="34" y2="29" stroke="black" stroke-width="0.1" />
-<circle cx="34" cy="29" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="34" y1="29" x2="37" y2="33" stroke="black" stroke-width="0.1" />
-<circle cx="37" cy="33" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="37" y1="33" x2="39" y2="38" stroke="black" stroke-width="0.1" />
-<circle cx="39" cy="38" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="39" y1="38" x2="40" y2="42" stroke="black" stroke-width="0.1" />
-<circle cx="40" cy="42" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="40" y1="42" x2="40" y2="45" stroke="black" stroke-width="0.1" />
-<circle cx="40" cy="45" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="40" y1="45" x2="39" y2="47" stroke="black" stroke-width="0.1" />
-<circle cx="39" cy="47" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="39" y1="47" x2="37" y2="48" stroke="black" stroke-width="0.1" />
-<circle cx="37" cy="48" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="37" y1="48" x2="36" y2="48" stroke="black" stroke-width="0.1" />
-<circle cx="36" cy="48" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="36" y1="48" x2="36" y2="47" stroke="black" stroke-width="0.1" />
-<circle cx="36" cy="47" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="36" y1="47" x2="37" y2="45" stroke="black" stroke-width="0.1" />
-<circle cx="37" cy="45" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="37" y1="45" x2="37" y2="42" stroke="black" stroke-width="0.1" />
-<circle cx="37" cy="42" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="37" y1="42" x2="37" y2="40" stroke="black" stroke-width="0.1" />
+<line x1="24" y1="23" x2="29" y2="28" stroke="black" stroke-width="0.1" />
+<circle cx="29" cy="28" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="29" y1="28" x2="33" y2="34" stroke="black" stroke-width="0.1" />
+<circle cx="33" cy="34" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="33" y1="34" x2="37" y2="40" stroke="black" stroke-width="0.1" />
 <circle cx="37" cy="40" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="37" y1="40" x2="38" y2="39" stroke="black" stroke-width="0.1" />
-<circle cx="38" cy="39" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="38" y1="39" x2="40" y2="39" stroke="black" stroke-width="0.1" />
-<circle cx="40" cy="39" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="40" y1="39" x2="43" y2="40" stroke="black" stroke-width="0.1" />
-<circle cx="43" cy="40" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="43" y1="40" x2="47" y2="42" stroke="black" stroke-width="0.1" />
-<circle cx="47" cy="42" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="47" y1="42" x2="50" y2="45" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="45" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="45" x2="52" y2="49" stroke="black" stroke-width="0.1" />
-<circle cx="52" cy="49" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="52" y1="49" x2="53" y2="54" stroke="black" stroke-width="0.1" />
-<circle cx="53" cy="54" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="53" y1="54" x2="53" y2="58" stroke="black" stroke-width="0.1" />
-<circle cx="53" cy="58" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="53" y1="58" x2="52" y2="61" stroke="black" stroke-width="0.1" />
-<circle cx="52" cy="61" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="52" y1="61" x2="50" y2="63" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="63" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="63" x2="49" y2="64" stroke="black" stroke-width="0.1" />
-<circle cx="49" cy="64" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="49" y1="64" x2="49" y2="64" stroke="black" stroke-width="0.1" />
-<circle cx="49" cy="64" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="49" y1="64" x2="50" y2="63" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="63" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="63" x2="50" y2="61" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="61" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="61" x2="50" y2="58" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="58" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="58" x2="50" y2="56" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="56" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="56" x2="50" y2="55" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="55" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="55" x2="50" y2="55" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="55" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="55" x2="50" y2="56" stroke="black" stroke-width="0.1" />
-<circle cx="50" cy="56" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="56" x2="50" y2="57" stroke="black" stroke-width="0.1" />
+<line x1="37" y1="40" x2="41" y2="45" stroke="black" stroke-width="0.1" />
+<circle cx="41" cy="45" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="41" y1="45" x2="45" y2="51" stroke="black" stroke-width="0.1" />
+<circle cx="45" cy="51" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="45" y1="51" x2="50" y2="57" stroke="black" stroke-width="0.1" />
 <circle cx="50" cy="57" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="50" y1="57" x2="51" y2="59" stroke="black" stroke-width="0.1" />
-<circle cx="51" cy="59" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="51" y1="59" x2="53" y2="61" stroke="black" stroke-width="0.1" />
-<circle cx="53" cy="61" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="53" y1="61" x2="55" y2="64" stroke="black" stroke-width="0.1" />
-<circle cx="55" cy="64" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="55" y1="64" x2="58" y2="68" stroke="black" stroke-width="0.1" />
-<circle cx="58" cy="68" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="58" y1="68" x2="62" y2="73" stroke="black" stroke-width="0.1" />
+<line x1="50" y1="57" x2="54" y2="62" stroke="black" stroke-width="0.1" />
+<circle cx="54" cy="62" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="54" y1="62" x2="58" y2="67" stroke="black" stroke-width="0.1" />
+<circle cx="58" cy="67" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="58" y1="67" x2="62" y2="73" stroke="black" stroke-width="0.1" />
 <circle cx="62" cy="73" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="62" y1="73" x2="65" y2="78" stroke="black" stroke-width="0.1" />
 <circle cx="65" cy="78" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
@@ -260,13 +162,13 @@
 <circle cx="112" cy="143" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="112" y1="143" x2="118" y2="150" stroke="black" stroke-width="0.1" />
 <circle cx="118" cy="150" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="118" y1="150" x2="125" y2="158" stroke="black" stroke-width="0.1" />
-<circle cx="125" cy="158" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="125" y1="158" x2="131" y2="165" stroke="black" stroke-width="0.1" />
+<line x1="118" y1="150" x2="124" y2="157" stroke="black" stroke-width="0.1" />
+<circle cx="124" cy="157" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="124" y1="157" x2="131" y2="165" stroke="black" stroke-width="0.1" />
 <circle cx="131" cy="165" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="131" y1="165" x2="138" y2="173" stroke="black" stroke-width="0.1" />
-<circle cx="138" cy="173" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="138" y1="173" x2="145" y2="180" stroke="black" stroke-width="0.1" />
+<line x1="131" y1="165" x2="138" y2="172" stroke="black" stroke-width="0.1" />
+<circle cx="138" cy="172" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="138" y1="172" x2="145" y2="180" stroke="black" stroke-width="0.1" />
 <circle cx="145" cy="180" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="145" y1="180" x2="151" y2="187" stroke="black" stroke-width="0.1" />
 <circle cx="151" cy="187" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
@@ -336,17 +238,17 @@
 <circle cx="382" cy="384" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="382" y1="384" x2="390" y2="390" stroke="black" stroke-width="0.1" />
 <circle cx="390" cy="390" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="390" y1="390" x2="399" y2="397" stroke="black" stroke-width="0.1" />
-<circle cx="399" cy="397" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="399" y1="397" x2="407" y2="403" stroke="black" stroke-width="0.1" />
+<line x1="390" y1="390" x2="398" y2="396" stroke="black" stroke-width="0.1" />
+<circle cx="398" cy="396" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="398" y1="396" x2="407" y2="403" stroke="black" stroke-width="0.1" />
 <circle cx="407" cy="403" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="407" y1="403" x2="415" y2="409" stroke="black" stroke-width="0.1" />
 <circle cx="415" cy="409" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="415" y1="409" x2="423" y2="415" stroke="black" stroke-width="0.1" />
 <circle cx="423" cy="415" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="423" y1="415" x2="432" y2="422" stroke="black" stroke-width="0.1" />
-<circle cx="432" cy="422" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="432" y1="422" x2="440" y2="428" stroke="black" stroke-width="0.1" />
+<line x1="423" y1="415" x2="431" y2="421" stroke="black" stroke-width="0.1" />
+<circle cx="431" cy="421" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="431" y1="421" x2="440" y2="428" stroke="black" stroke-width="0.1" />
 <circle cx="440" cy="428" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="440" y1="428" x2="449" y2="434" stroke="black" stroke-width="0.1" />
 <circle cx="449" cy="434" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
@@ -408,9 +310,9 @@
 <circle cx="711" cy="613" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="711" y1="613" x2="720" y2="619" stroke="black" stroke-width="0.1" />
 <circle cx="720" cy="619" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="720" y1="619" x2="730" y2="626" stroke="black" stroke-width="0.1" />
-<circle cx="730" cy="626" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="730" y1="626" x2="739" y2="632" stroke="black" stroke-width="0.1" />
+<line x1="720" y1="619" x2="729" y2="625" stroke="black" stroke-width="0.1" />
+<circle cx="729" cy="625" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="729" y1="625" x2="739" y2="632" stroke="black" stroke-width="0.1" />
 <circle cx="739" cy="632" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="739" y1="632" x2="748" y2="638" stroke="black" stroke-width="0.1" />
 <circle cx="748" cy="638" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
@@ -428,17 +330,17 @@
 <circle cx="804" cy="674" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="804" y1="674" x2="813" y2="680" stroke="black" stroke-width="0.1" />
 <circle cx="813" cy="680" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="813" y1="680" x2="823" y2="687" stroke="black" stroke-width="0.1" />
-<circle cx="823" cy="687" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="823" y1="687" x2="832" y2="693" stroke="black" stroke-width="0.1" />
+<line x1="813" y1="680" x2="822" y2="686" stroke="black" stroke-width="0.1" />
+<circle cx="822" cy="686" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="822" y1="686" x2="832" y2="693" stroke="black" stroke-width="0.1" />
 <circle cx="832" cy="693" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="832" y1="693" x2="842" y2="700" stroke="black" stroke-width="0.1" />
-<circle cx="842" cy="700" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="842" y1="700" x2="852" y2="706" stroke="black" stroke-width="0.1" />
+<line x1="832" y1="693" x2="842" y2="699" stroke="black" stroke-width="0.1" />
+<circle cx="842" cy="699" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="842" y1="699" x2="852" y2="706" stroke="black" stroke-width="0.1" />
 <circle cx="852" cy="706" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="852" y1="706" x2="863" y2="713" stroke="black" stroke-width="0.1" />
-<circle cx="863" cy="713" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="863" y1="713" x2="873" y2="720" stroke="black" stroke-width="0.1" />
+<line x1="852" y1="706" x2="862" y2="713" stroke="black" stroke-width="0.1" />
+<circle cx="862" cy="713" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="862" y1="713" x2="873" y2="720" stroke="black" stroke-width="0.1" />
 <circle cx="873" cy="720" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="873" y1="720" x2="883" y2="727" stroke="black" stroke-width="0.1" />
 <circle cx="883" cy="727" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
@@ -484,9 +386,9 @@
 <circle cx="1083" cy="885" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="1083" y1="885" x2="1093" y2="894" stroke="black" stroke-width="0.1" />
 <circle cx="1093" cy="894" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="1093" y1="894" x2="1104" y2="904" stroke="black" stroke-width="0.1" />
-<circle cx="1104" cy="904" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="1104" y1="904" x2="1114" y2="913" stroke="black" stroke-width="0.1" />
+<line x1="1093" y1="894" x2="1103" y2="903" stroke="black" stroke-width="0.1" />
+<circle cx="1103" cy="903" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="1103" y1="903" x2="1114" y2="913" stroke="black" stroke-width="0.1" />
 <circle cx="1114" cy="913" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="1114" y1="913" x2="1124" y2="922" stroke="black" stroke-width="0.1" />
 <circle cx="1124" cy="922" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
@@ -556,9 +458,9 @@
 <circle cx="1417" cy="1243" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="1417" y1="1243" x2="1425" y2="1253" stroke="black" stroke-width="0.1" />
 <circle cx="1425" cy="1253" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="1425" y1="1253" x2="1434" y2="1264" stroke="black" stroke-width="0.1" />
-<circle cx="1434" cy="1264" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="1434" y1="1264" x2="1442" y2="1274" stroke="black" stroke-width="0.1" />
+<line x1="1425" y1="1253" x2="1433" y2="1263" stroke="black" stroke-width="0.1" />
+<circle cx="1433" cy="1263" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
+<line x1="1433" y1="1263" x2="1442" y2="1274" stroke="black" stroke-width="0.1" />
 <circle cx="1442" cy="1274" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="1442" y1="1274" x2="1450" y2="1284" stroke="black" stroke-width="0.1" />
 <circle cx="1450" cy="1284" r="0.829" fill="green" stroke="none" stroke-width="0.2"/>

@@ -17,7 +17,7 @@ def solve_lambdaman(i, search_parameters=None):
     )
 
     search_parameters.local_search_metaheuristic = (routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH)
-    search_parameters.time_limit.seconds = 5 * 60
+    search_parameters.time_limit.seconds = 60 * 60
     search_parameters.log_search = True
 
     print(f'\n\nLambdaman #{i}')
@@ -50,7 +50,7 @@ with Pool(18) as p:
             solve_lambdaman,
             (
                 (i,)
-                for i in [10]
+                for i in [21]
                 #if i not in [6, 9, 10, 20, 21]
             )
         )
