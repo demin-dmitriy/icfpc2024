@@ -1,0 +1,48 @@
+(
+    Y(λ f a.
+        min
+        (
+            a,
+
+            1 + (
+                if (a > 2) {
+                    ((Y(λ t. (λ s. (λ v. (
+                        if (s == a) {
+                            v
+                        } else {
+                            (t(s + 1))(
+                                if (f(s) > s - 1) {
+                                    if (a % s == 0) {
+                                        (v / f(s)) * (f(s) - 1)
+                                    } else {
+                                        v
+                                    }
+                                } else {
+                                    v
+                                }
+                            )
+                        }
+                    )))))(2))(a)
+                } else {
+                    a
+                }
+            )
+        )
+    )
+)(1234567)
+
+
+
+
+def f(a):
+    if a <= 2:
+        return a
+
+    v = a
+    for s in range(2, a):
+        f_s = f(s)
+        if f_s > s - 1:
+            v = v / f_s * (f_s - 1)
+
+    return min(a, 1 + v)
+
