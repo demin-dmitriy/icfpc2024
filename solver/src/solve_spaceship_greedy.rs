@@ -96,28 +96,31 @@ struct Move {
     code: u8
 }
 
+const MOVE_LIMIT: usize = 10000000;
+
+const NOOP_MOVE: Move = Move{diff: Pos{x: 0, y: 0}, code: 5};
+const ALL_MOVES: [Move; 9] = [
+    Move{diff: Pos{x: -1, y: -1}, code: 1},
+    Move{diff: Pos{x: 0, y: -1}, code: 2},
+    Move{diff: Pos{x: 1, y: -1}, code: 3},
+    Move{diff: Pos{x: -1, y: 0}, code: 4},
+    Move{diff: Pos{x: 0, y: 0}, code: 5},
+    Move{diff: Pos{x: 1, y: 0}, code: 6},
+    Move{diff: Pos{x: -1, y: 1}, code: 7},
+    Move{diff: Pos{x: 0, y: 1}, code: 8},
+    Move{diff: Pos{x: 1, y: 1}, code: 9},
+];
+
 fn towards_to(
     current_pos: &mut Pos,
     current_speed: &mut Pos,
     target: &Pos,
     mut moves: Vec<u8>
 ) -> Option<Vec<u8>> {
-    let noop_move = Move{diff: Pos{x: 0, y: 0}, code: 5};
-    let all_moves = [
-        Move{diff: Pos{x: -1, y: -1}, code: 1},
-        Move{diff: Pos{x: 0, y: -1}, code: 2},
-        Move{diff: Pos{x: 1, y: -1}, code: 3},
-        Move{diff: Pos{x: -1, y: 0}, code: 4},
-        Move{diff: Pos{x: 0, y: 0}, code: 5},
-        Move{diff: Pos{x: 1, y: 0}, code: 6},
-        Move{diff: Pos{x: -1, y: 1}, code: 7},
-        Move{diff: Pos{x: 0, y: 1}, code: 8},
-        Move{diff: Pos{x: 1, y: 1}, code: 9},
-    ];
 
     let mut dist = f64::MAX;
-    let mut best_move = noop_move;
-    for m in all_moves.iter() {
+    let mut best_move = NOOP_MOVE;
+    for m in ALL_MOVES.iter() {
         let new_speed = add(&current_speed, &m.diff);
         let new_pos = add(&current_pos, &new_speed);
         let new_dist = distance(&new_pos, &target);
@@ -133,9 +136,7 @@ fn towards_to(
     
     moves.push(best_move.code);
 
-    dist = distance(&current_pos, &target);
-
-    if moves.len() > 1000000 {
+    if moves.len() > MOVE_LIMIT {
         return None;
     }
 
@@ -151,8 +152,6 @@ fn move_to(
 
     let mut dist = f64::MAX;
     while dist > 0.0 {
-        dist = f64::MAX;
-        
         let new_moves = towards_to(current_pos, current_speed, target, moves);
         match new_moves {
             Some(ms) => moves = ms,
@@ -183,7 +182,7 @@ pub fn solve_greedy_with_init(
             Some(ms) => moves = ms,
             None => return None
         }
-        if moves.len() > 1000000 {
+        if moves.len() > MOVE_LIMIT {
             return None;
         }
     }
