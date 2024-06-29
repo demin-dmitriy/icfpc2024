@@ -68,8 +68,8 @@ class Lazy:
 
 def eval_head(tokens, ctx: dict[str, np.array]):
     v = eval_tokens(tokens, ctx)
-    # while isinstance(v, Lazy):
-    #     v = v.value()
+    while isinstance(v, Lazy):
+        v = v.value()
     return v
 
 
@@ -128,7 +128,7 @@ def eval_tokens(tokens, ctx: dict[str, np.array]):
             case lex.Binary.Drop:
                 return eval_head(arg2, ctx)[eval_head(arg1, ctx):]
             case lex.Binary.Apply:
-                return eval_head(arg1, ctx)(eval_head(arg2, ctx))
+                return eval_head(arg1, ctx)(Lazy(None, arg2, ctx))
             case lex.Unary.Neg:
                 return -eval_head(arg1, ctx)
             case lex.Unary.Not:
@@ -149,7 +149,7 @@ def eval_tokens(tokens, ctx: dict[str, np.array]):
                 elif isinstance(tok, (int, str, bool)):
                     return tok
 
-                print(tok, type(tok))
+                # print(tok, type(tok))
                 assert False, f'Unknown token {tok}'
 
 def paren(tokens):
@@ -246,7 +246,7 @@ def pretty_rename(tokens):
             if var_name not in mapping and available_names:
                 mapping[var_name] = available_names.pop()
 
-            token.variable = mapping.get(var_name, var_name)
+            token.variable = mapping.get(var_name, f'#{var_name}')
 
 
 def main():
