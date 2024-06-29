@@ -50,7 +50,7 @@ with Pool(18) as p:
             solve_lambdaman,
             (
                 (i,)
-                for i in [20]
+                for i in [10]
                 #if i not in [6, 9, 10, 20, 21]
             )
         )
