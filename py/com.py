@@ -34,14 +34,22 @@ def com(msg :str):
 
 def main():
     parser = ArgumentParser('com', description="Example usage: py/com.py 'get index'")
-    parser.add_argument('request_string')
+    parser.add_argument('request_string', nargs='?')
     parser.add_argument('--save', action='store_true')
     parser.add_argument('--raw', action='store_true')
     parser.add_argument('--stdin', action='store_true')
+    parser.add_argument('--file')
+
     args = parser.parse_args()
+
+    assert 1 == (args.request_string is not None) + args.stdin + (args.file is not None), (
+        "Only one allowed: either `request_string` or `--stdin` or `--file`"
+    )
 
     if args.stdin:
         request_string = sys.stdin.read()
+    elif args.file is not None:
+        request_string = open(args.file).read()
     else:
         request_string = args.request_string
 
