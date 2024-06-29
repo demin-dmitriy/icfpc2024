@@ -7,9 +7,6 @@ fn main() {
     let problems_folder = &args[1];
     let solutions_folder = &args[2];
     for i in 1..26 {
-        if i == 22 {
-            continue;
-        }
         let problem_filepath = format!("{}/{}", problems_folder, i);
         println!("Solve {}: ", i);
         let positions = read_positions(&problem_filepath);
