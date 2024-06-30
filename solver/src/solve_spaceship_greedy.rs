@@ -1009,7 +1009,7 @@ pub fn solve_greedy_min_step_random_exact_move(mut positions: Vec<Pos>) -> Optio
     Some(all_moves)
 }
 
-fn get_random_min_nearest_and_remove(
+fn _get_random_min_nearest_and_remove(
     current_pos: &Pos, 
     current_speed: &Pos,
     positions: &mut Vec<Pos>,

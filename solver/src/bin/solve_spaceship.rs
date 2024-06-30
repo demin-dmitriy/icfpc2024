@@ -22,7 +22,11 @@ fn run_solvers(
         //solvers.push(("Greedy min step, exact min; fast", solve_greedy_min_step_exact_move_fast));
         //solvers.push(("Greedy min step iterative, exact min", solve_greedy_min_step_iterative_exact_move));
         //solvers.push(("Greedy min step random, exact min", solve_greedy_min_step_random_exact_move));
-        solvers.push(("Greedy near random, exact min", solve_greedy_near_random_exact_move)); // solves task 25
+
+        // solves task 25: radius 100, grow 50
+        // solves task 23: radius 100, grow 50 when unvisited points > 200; else grom 100000
+        solvers.push(("Greedy near random, exact min", solve_greedy_near_random_exact_move));
+
         //solvers.push(("Tsp, exact min", solve_tsp_exact_move));
 
         let mut min_score = usize::MAX;
