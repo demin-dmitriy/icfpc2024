@@ -1,5 +1,5 @@
  
-use std::{fs::read_to_string, future};
+use std::fs::read_to_string;
 use std::io::Write;
 
 use quadtree_rs::{area::AreaBuilder, point::Point, Quadtree};
@@ -516,7 +516,7 @@ fn move_using_n_steps_1d(
     moves
 }
 
-fn move_using_n_steps_1d_inertion_first(
+fn _move_using_n_steps_1d_inertion_first(
     mut current_pos: i64,
     mut current_speed: i64,
     target: i64,
