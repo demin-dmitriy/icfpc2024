@@ -3,6 +3,7 @@ use std::fs::read_to_string;
 use std::io::Write;
 
 use quadtree_rs::{area::AreaBuilder, point::Point, Quadtree};
+use rand::Rng;
 
 #[derive(PartialEq, Clone, Copy)]
 pub struct Pos
@@ -720,6 +721,13 @@ pub fn solve_greedy_quadtree_exact_min_and_towards(positions: Vec<Pos>) -> Optio
             }
         }
         if all_moves.len() > MOVE_LIMIT {
+            return None;
+        }
+    }
+
+    Some(all_moves)
+}
+
 fn step_distance(
     current_pos: &Pos,
     current_speed: &Pos,
@@ -763,6 +771,125 @@ pub fn solve_greedy_min_step_exact_move(mut positions: Vec<Pos>) -> Option<Vec<S
 
     while !positions.is_empty() {
         let nearest = get_min_step_nearest_and_remove(&current_pos, &current_speed,&mut positions);
+
+        let new_moves =  move_to_exact(
+            &current_pos, 
+            &current_speed, 
+            &nearest, 
+            all_moves.len()
+        );
+
+        match new_moves {
+            Some(ms) => {
+                all_moves.extend_from_slice(&ms);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+            },
+            None => {
+                let new_move = towards_to(
+                    &current_pos, 
+                    &current_speed, 
+                    &nearest
+                );
+                all_moves.push(new_move);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+                if current_pos != nearest {
+                    positions.push(nearest)
+                }
+            }
+        }
+        if all_moves.len() > MOVE_LIMIT {
+            return None;
+        }
+    }
+
+    Some(all_moves)
+}
+
+pub fn solve_greedy_min_step_iterative_exact_move(mut positions: Vec<Pos>) -> Option<Vec<Step>>  {
+    let mut all_moves = Vec::new();
+    let mut current_pos = Pos{x: 0, y: 0};
+    let mut current_speed = Pos{x: 0, y: 0};
+
+    while !positions.is_empty() {
+        let nearest = get_min_step_nearest_and_remove(&current_pos, &current_speed,&mut positions);
+
+        let new_moves =  move_to_exact(
+            &current_pos, 
+            &current_speed, 
+            &nearest, 
+            all_moves.len()
+        );
+
+        match new_moves {
+            Some(ms) => {
+                all_moves.push(*ms.first().unwrap());
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+                if current_pos != nearest {
+                    positions.push(nearest)
+                }
+            },
+            None => {
+                let new_move = towards_to(
+                    &current_pos, 
+                    &current_speed, 
+                    &nearest
+                );
+                all_moves.push(new_move);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+                if current_pos != nearest {
+                    positions.push(nearest)
+                }
+            }
+        }
+        if all_moves.len() > MOVE_LIMIT {
+            return None;
+        }
+    }
+
+    Some(all_moves)
+}
+
+fn get_random_min_step_nearest_and_remove(
+    current_pos: &Pos, 
+    current_speed: &Pos,
+    positions: &mut Vec<Pos>
+) -> Pos {
+    assert!(positions.len() > 0);
+
+    let mut min_dist = step_distance(current_pos, current_speed, &positions[0]);
+
+    let mut min_subset = Vec::new();
+    min_subset.push(0);
+    for i in 1..positions.len() {
+        let dist = step_distance(current_pos, current_speed, &positions[i]);
+        if dist < min_dist {
+            min_dist = dist;
+            min_subset.clear();
+            min_subset.push(i);
+        }
+        else if dist == min_dist {
+            min_subset.push(i);
+        }
+    }
+
+    let mut rng = rand::thread_rng();
+    let index = rng.gen_range(0..min_subset.len());
+
+    let result = positions.remove(min_subset[index]);
+    result
+}
+
+pub fn solve_greedy_min_step_random_exact_move(mut positions: Vec<Pos>) -> Option<Vec<Step>>  {
+    let mut all_moves = Vec::new();
+    let mut current_pos = Pos{x: 0, y: 0};
+    let mut current_speed = Pos{x: 0, y: 0};
+
+    while !positions.is_empty() {
+        let nearest = get_random_min_step_nearest_and_remove(&current_pos, &current_speed,&mut positions);
 
         let new_moves =  move_to_exact(
             &current_pos, 
