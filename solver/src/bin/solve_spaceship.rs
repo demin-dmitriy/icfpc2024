@@ -18,9 +18,11 @@ fn run_solvers(
         //solvers.push(("Greedy try min, fallback towards", solve_greedy_try_min_and_towards));
         //solvers.push(("Greedy use quadtree, try min, fallback towards", solve_greedy_quadtree_try_min_and_towards));
         //solvers.push(("Greedy use quadtree, exact min, fallback towards", solve_greedy_quadtree_exact_min_and_towards));
-        solvers.push(("Greedy min step, exact min", solve_greedy_min_step_exact_move));
+        //solvers.push(("Greedy min step, exact min", solve_greedy_min_step_exact_move));
+        //solvers.push(("Greedy min step, exact min; fast", solve_greedy_min_step_exact_move_fast));
         //solvers.push(("Greedy min step iterative, exact min", solve_greedy_min_step_iterative_exact_move));
         //solvers.push(("Greedy min step random, exact min", solve_greedy_min_step_random_exact_move));
+        solvers.push(("Greedy near random, exact min", solve_greedy_near_random_exact_move)); // solves task 25
         //solvers.push(("Tsp, exact min", solve_tsp_exact_move));
 
         let mut min_score = usize::MAX;
