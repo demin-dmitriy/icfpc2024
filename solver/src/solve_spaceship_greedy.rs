@@ -770,7 +770,7 @@ pub fn solve_greedy_min_step_exact_move(mut positions: Vec<Pos>) -> Option<Vec<S
     let mut current_speed = Pos{x: 0, y: 0};
 
     while !positions.is_empty() {
-        let nearest = get_min_step_nearest_and_remove(&current_pos, &current_speed,&mut positions);
+        let nearest = get_min_step_nearest_and_remove(&current_pos, &current_speed, &mut positions);
 
         let new_moves =  move_to_exact(
             &current_pos, 
@@ -813,7 +813,7 @@ pub fn solve_greedy_min_step_iterative_exact_move(mut positions: Vec<Pos>) -> Op
     let mut current_speed = Pos{x: 0, y: 0};
 
     while !positions.is_empty() {
-        let nearest = get_min_step_nearest_and_remove(&current_pos, &current_speed,&mut positions);
+        let nearest = get_min_step_nearest_and_remove(&current_pos, &current_speed, &mut positions);
 
         let new_moves =  move_to_exact(
             &current_pos, 
@@ -889,7 +889,7 @@ pub fn solve_greedy_min_step_random_exact_move(mut positions: Vec<Pos>) -> Optio
     let mut current_speed = Pos{x: 0, y: 0};
 
     while !positions.is_empty() {
-        let nearest = get_random_min_step_nearest_and_remove(&current_pos, &current_speed,&mut positions);
+        let nearest = get_random_min_step_nearest_and_remove(&current_pos, &current_speed, &mut positions);
 
         let new_moves =  move_to_exact(
             &current_pos, 
