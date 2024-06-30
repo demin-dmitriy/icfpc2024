@@ -926,6 +926,54 @@ pub fn solve_greedy_min_step_random_exact_move(mut positions: Vec<Pos>) -> Optio
     Some(all_moves)
 }
 
+pub fn solve_tsp_exact_move(mut positions: Vec<Pos>) -> Option<Vec<Step>>  {
+    let initial_pos = Pos{x: 0, y: 0};
+    let mut all_moves = Vec::new();
+    let mut current_pos = initial_pos;
+    let mut current_speed = Pos{x: 0, y: 0};
+
+    let mut tsp_points = Vec::new();
+    for pos in &positions {
+        tsp_points.push((pos.x as f64, pos.y as f64));
+    }
+    let tour = travelling_salesman::simulated_annealing::solve(
+        &tsp_points,
+        time::Duration::seconds(600),
+    );
+    println!("Tour distance: {}", tour.distance);
+
+    let mut step = 0;
+    for index in tour.route {
+        step += 1;
+
+        let next = &positions[index];
+
+        let new_moves =  move_to_exact(
+            &current_pos, 
+            &current_speed, 
+            &next, 
+            all_moves.len()
+        );
+
+        match new_moves {
+            Some(ms) => {
+                all_moves.extend_from_slice(&ms);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+            },
+            None => {
+                return None;
+            }
+        }
+        if all_moves.len() > MOVE_LIMIT {
+            return None;
+        }
+        println!("Point {}/{}, total moves {}", step, positions.len(), all_moves.len());
+    }
+
+    Some(all_moves)
+}
+
 pub fn print_to_console(moves: &[Step]) {
     for step in moves {
         print!("{}", step.m.code);
