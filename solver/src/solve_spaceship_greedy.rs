@@ -720,6 +720,78 @@ pub fn solve_greedy_quadtree_exact_min_and_towards(positions: Vec<Pos>) -> Optio
             }
         }
         if all_moves.len() > MOVE_LIMIT {
+fn step_distance(
+    current_pos: &Pos,
+    current_speed: &Pos,
+    target: &Pos,
+) -> i64 {
+    let mut steps = 1;
+    loop {
+        let target_reachable = is_reachable(&current_pos, &current_speed, target, steps);
+        if target_reachable {
+            return steps;
+        }
+
+        steps += 1;
+    }
+}
+
+fn get_min_step_nearest_and_remove(
+    current_pos: &Pos, 
+    current_speed: &Pos,
+    positions: &mut Vec<Pos>
+) -> Pos {
+    assert!(positions.len() > 0);
+
+    let mut min_index = 0;
+    let mut min_dist = step_distance(current_pos, current_speed, &positions[min_index]);
+    for i in 1..positions.len() {
+        let dist = step_distance(current_pos, current_speed, &positions[i]);
+        if dist < min_dist {
+            min_dist = dist;
+            min_index = i;
+        }
+    }
+    let result = positions.remove(min_index);
+    result
+}
+
+pub fn solve_greedy_min_step_exact_move(mut positions: Vec<Pos>) -> Option<Vec<Step>>  {
+    let mut all_moves = Vec::new();
+    let mut current_pos = Pos{x: 0, y: 0};
+    let mut current_speed = Pos{x: 0, y: 0};
+
+    while !positions.is_empty() {
+        let nearest = get_min_step_nearest_and_remove(&current_pos, &current_speed,&mut positions);
+
+        let new_moves =  move_to_exact(
+            &current_pos, 
+            &current_speed, 
+            &nearest, 
+            all_moves.len()
+        );
+
+        match new_moves {
+            Some(ms) => {
+                all_moves.extend_from_slice(&ms);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+            },
+            None => {
+                let new_move = towards_to(
+                    &current_pos, 
+                    &current_speed, 
+                    &nearest
+                );
+                all_moves.push(new_move);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+                if current_pos != nearest {
+                    positions.push(nearest)
+                }
+            }
+        }
+        if all_moves.len() > MOVE_LIMIT {
             return None;
         }
     }
