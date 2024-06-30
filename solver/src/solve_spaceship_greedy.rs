@@ -85,11 +85,11 @@ fn towards_to(
     current_speed: &Pos,
     target: &Pos,
 ) -> Step {
-
     let mut dist = f64::MAX;
     let mut best_move = NOOP_MOVE;
     for m in ALL_MOVES.iter() {
         let new_speed = add(&current_speed, &m.diff);
+
         let new_pos = add(&current_pos, &new_speed);
         let new_dist = distance(&new_pos, &target);
         if new_dist < dist {
@@ -227,7 +227,7 @@ fn move_min_to(
     current_moves: &Vec<Step>,
     all_moves_count: usize
 ) {
-    if current_moves.len() > 3 {
+    if current_moves.len() > 5 {
         return;
     }
     if all_moves_count + current_moves.len() > MOVE_LIMIT {
@@ -381,18 +381,17 @@ pub fn solve_greedy_quadtree_try_min_and_towards(positions: Vec<Pos>) -> Option<
     let mut current_pos = Pos{x: 0, y: 0};
     let mut current_speed = Pos{x: 0, y: 0};
 
-    let mut padding_x = 0;
-    let mut padding_y = 0;
+    let mut padding = Pos{x: 0, y: 0};
     for pos in &positions {
-        padding_x = padding_x.min(pos.x);
-        padding_y = padding_y.min(pos.y);
+        padding.x = padding.x.min(pos.x);
+        padding.y = padding.y.min(pos.y);
     }
-    padding_x = -padding_x;
-    padding_y = -padding_y;
+    padding.x = -padding.x;
+    padding.y = -padding.y;
 
     let mut qt = Quadtree::<i64, Pos>::new(30);
     for pos in &positions {
-        qt.insert_pt(Point{x: padding_x + pos.x, y: padding_y + pos.y}, pos.clone());
+        qt.insert_pt(Point{x: padding.x + pos.x, y: padding.y + pos.y}, pos.clone());
     }
 
     while !qt.is_empty() {
@@ -402,8 +401,8 @@ pub fn solve_greedy_quadtree_try_min_and_towards(positions: Vec<Pos>) -> Option<
             let region = AreaBuilder::default()
                 .anchor(
                     Point{
-                        x: (padding_x + current_pos.x - search_region_size / 2).max(0), 
-                        y: (padding_y + current_pos.y - search_region_size / 2).max(0)
+                        x: (padding.x + current_pos.x - search_region_size / 2).max(0), 
+                        y: (padding.y + current_pos.y - search_region_size / 2).max(0)
                     }
                 )
                 .dimensions((search_region_size, search_region_size))
@@ -420,7 +419,7 @@ pub fn solve_greedy_quadtree_try_min_and_towards(positions: Vec<Pos>) -> Option<
         let nearest = get_nearest_and_remove(&current_pos, &mut points_near);
         {
             let region = AreaBuilder::default()
-                .anchor(Point{x: padding_x + nearest.x, y: padding_y + nearest.y})
+                .anchor(Point{x: padding.x + nearest.x, y: padding.y + nearest.y})
                 .dimensions((1, 1))
                 .build().unwrap();
             qt.delete(region);
@@ -453,7 +452,7 @@ pub fn solve_greedy_quadtree_try_min_and_towards(positions: Vec<Pos>) -> Option<
                 current_pos = all_moves.last().unwrap().result_pos;
                 current_speed = all_moves.last().unwrap().result_speed;
                 if current_pos != nearest {
-                    qt.insert_pt(Point{x: padding_x + nearest.x, y: padding_y + nearest.y}, nearest);
+                    qt.insert_pt(Point{x: padding.x + nearest.x, y: padding.y + nearest.y}, nearest);
                 }
             }
         }
