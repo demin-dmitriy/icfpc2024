@@ -15,7 +15,8 @@ fn run_solvers(
     //solvers.push(("Greedy move towards", solve_greedy_towards));
     //solvers.push(("Greedy try min, fallback max speed", solve_greedy_try_min));
     //solvers.push(("Greedy try min, fallback towards", solve_greedy_try_min_and_towards));
-    solvers.push(("Greedy use quadtree, try min, fallback towards", solve_greedy_quadtree_try_min_and_towards));
+    //solvers.push(("Greedy use quadtree, try min, fallback towards", solve_greedy_quadtree_try_min_and_towards));
+    solvers.push(("Greedy use quadtree, exact min, fallback towards", solve_greedy_quadtree_exact_min_and_towards));
 
     let mut min_score = usize::MAX;
     let mut new_best_solution: Option<Vec<Step>> = None;
@@ -72,7 +73,7 @@ fn main() {
 
     let pool = ThreadPool::new(workers_by_default.get());
 
-    for i in 1..26 {
+    for i in 23..26 {
         let problem_filepath = format!("{}/{}", problems_folder, i);
         let solution_filepath = format!("{}/{}", solutions_folder, i);
         pool.execute(
