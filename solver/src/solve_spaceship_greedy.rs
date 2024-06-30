@@ -1,5 +1,5 @@
  
-use std::fs::read_to_string;
+use std::{fs::read_to_string, future};
 use std::io::Write;
 
 use quadtree_rs::{area::AreaBuilder, point::Point, Quadtree};
@@ -227,7 +227,7 @@ fn move_min_to(
     current_moves: &Vec<Step>,
     all_moves_count: usize
 ) {
-    if current_moves.len() > 5 {
+    if current_moves.len() > 3 {
         return;
     }
     if all_moves_count + current_moves.len() > MOVE_LIMIT {
@@ -437,6 +437,235 @@ pub fn solve_greedy_quadtree_try_min_and_towards(positions: Vec<Pos>) -> Option<
         );
 
         match current_best {
+            Some(ms) => {
+                all_moves.extend_from_slice(&ms);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+            },
+            None => {
+                let new_move = towards_to(
+                    &current_pos, 
+                    &current_speed, 
+                    &nearest
+                );
+                all_moves.push(new_move);
+                current_pos = all_moves.last().unwrap().result_pos;
+                current_speed = all_moves.last().unwrap().result_speed;
+                if current_pos != nearest {
+                    qt.insert_pt(Point{x: padding.x + nearest.x, y: padding.y + nearest.y}, nearest);
+                }
+            }
+        }
+        if all_moves.len() > MOVE_LIMIT {
+            return None;
+        }
+    }
+
+    Some(all_moves)
+}
+
+fn is_reachable_1d(
+    current_pos: i64,
+    current_speed: i64,
+    target: i64,
+    steps: i64
+) -> bool {
+    let center = current_pos + current_speed * steps;
+    let radius = (steps * (steps + 1)) / 2;
+
+    (target >= center - radius) && (target <= center + radius)
+}
+
+fn is_reachable(
+    current_pos: &Pos,
+    current_speed: &Pos,
+    target: &Pos,
+    steps: i64
+) -> bool {
+    
+    is_reachable_1d(current_pos.x, current_speed.x, target.x, steps)
+    && is_reachable_1d(current_pos.y, current_speed.y, target.y, steps)
+}
+
+fn move_using_n_steps_1d(
+    mut current_pos: i64,
+    mut current_speed: i64,
+    target: i64,
+    steps: i64
+) -> Vec<i64> {
+    let mut moves = Vec::new();
+
+    for i in 0..steps {
+        let future_pos = current_pos + current_speed * (steps - i);
+        let m;
+        if future_pos == target {
+            m = 0;
+        }
+        else if future_pos > target {
+            m = -1;
+        }
+        else {
+            m = 1;
+        }
+        current_speed += m;
+        current_pos += current_speed;
+        moves.push(m);
+    }
+
+    moves
+}
+
+fn to_2d_move(
+    x: i64,
+    y: i64
+) -> Move {
+    let pos = Pos{x, y};
+    match x {
+        -1 => {
+            match y {
+                -1 => Move{diff: pos, code: 1},
+                0 => Move{diff: pos, code: 4},
+                1 => Move{diff: pos, code: 7},
+                _ => unreachable!()
+            }
+        },
+        0 => {
+            match y {
+                -1 => Move{diff: pos, code: 2},
+                0 => Move{diff: pos, code: 5},
+                1 => Move{diff: pos, code: 8},
+                _ => unreachable!()
+            }
+        },
+        1 => {
+            match y {
+                -1 => Move{diff: pos, code: 3},
+                0 => Move{diff: pos, code: 6},
+                1 => Move{diff: pos, code: 9},
+                _ => unreachable!()
+            }
+        },
+        _ => unreachable!()
+    }
+}
+
+fn move_using_n_steps(
+    mut current_pos: Pos,
+    mut current_speed: Pos,
+    target: &Pos,
+    steps: i64
+) -> Vec<Step> {
+
+    let moves_x = move_using_n_steps_1d(
+        current_pos.x, 
+        current_speed.x, 
+        target.x, 
+        steps
+    );
+    let moves_y = move_using_n_steps_1d(
+        current_pos.y, 
+        current_speed.y, 
+        target.y, 
+        steps
+    );
+
+    let mut moves = Vec::new();
+    for i in 0..moves_x.len() {
+        let x_move = moves_x[i];
+        let y_move = moves_y[i];
+        let m = to_2d_move(x_move, y_move);
+        current_speed = add(&current_speed, &m.diff);
+        current_pos = add(&current_pos, &current_speed);
+        let step = Step{
+            m,
+            result_pos: current_pos,
+            result_speed: current_speed
+        };
+        moves.push(step);
+    }
+    assert!(moves.last().unwrap().result_pos == *target);
+    moves
+}
+
+fn move_to_exact(
+    current_pos: &Pos,
+    current_speed: &Pos,
+    target: &Pos,
+    all_moves_count: usize
+) -> Option<Vec<Step>> {
+    for steps in 1..1000 {
+        if all_moves_count + steps > MOVE_LIMIT {
+            return None;
+        }
+        
+        let target_reachable = is_reachable(&current_pos, &current_speed, target, steps as i64);
+        if !target_reachable {
+            continue;
+        }
+
+        return Some(
+            move_using_n_steps(current_pos.clone(), current_speed.clone(), target, steps as i64)
+        );
+    }
+    None
+}
+
+pub fn solve_greedy_quadtree_exact_min_and_towards(positions: Vec<Pos>) -> Option<Vec<Step>>  {
+    let mut all_moves = Vec::new();
+    let mut current_pos = Pos{x: 0, y: 0};
+    let mut current_speed = Pos{x: 0, y: 0};
+
+    let mut padding = Pos{x: 0, y: 0};
+    for pos in &positions {
+        padding.x = padding.x.min(pos.x);
+        padding.y = padding.y.min(pos.y);
+    }
+    padding.x = -padding.x;
+    padding.y = -padding.y;
+
+    let mut qt = Quadtree::<i64, Pos>::new(30);
+    for pos in &positions {
+        qt.insert_pt(Point{x: padding.x + pos.x, y: padding.y + pos.y}, pos.clone());
+    }
+
+    while !qt.is_empty() {
+        let mut search_region_size = 10;
+        let mut points_near = Vec::new();
+        while points_near.is_empty() {            
+            let region = AreaBuilder::default()
+                .anchor(
+                    Point{
+                        x: (padding.x + current_pos.x - search_region_size / 2).max(0), 
+                        y: (padding.y + current_pos.y - search_region_size / 2).max(0)
+                    }
+                )
+                .dimensions((search_region_size, search_region_size))
+                .build().unwrap();
+            let query = qt.query(region);
+            for v in query {
+                points_near.push(v.value_ref().clone());
+            }
+
+            if points_near.is_empty() {
+                search_region_size += 5;
+            }
+        }
+        let nearest = get_nearest_and_remove(&current_pos, &mut points_near);
+        {
+            let region = AreaBuilder::default()
+                .anchor(Point{x: padding.x + nearest.x, y: padding.y + nearest.y})
+                .dimensions((1, 1))
+                .build().unwrap();
+            qt.delete(region);
+        }
+
+        let new_moves =  move_to_exact(
+            &current_pos, 
+            &current_speed, 
+            &nearest, 
+            all_moves.len()
+        );
+        match new_moves {
             Some(ms) => {
                 all_moves.extend_from_slice(&ms);
                 current_pos = all_moves.last().unwrap().result_pos;
