@@ -487,6 +487,7 @@ fn is_reachable(
     && is_reachable_1d(current_pos.y, current_speed.y, target.y, steps)
 }
 
+// change speed at the beginning, that move with stable speed
 fn move_using_n_steps_1d(
     mut current_pos: i64,
     mut current_speed: i64,
@@ -506,6 +507,39 @@ fn move_using_n_steps_1d(
         }
         else {
             m = 1;
+        }
+        current_speed += m;
+        current_pos += current_speed;
+        moves.push(m);
+    }
+
+    moves
+}
+
+fn move_using_n_steps_1d_inertion_first(
+    mut current_pos: i64,
+    mut current_speed: i64,
+    target: i64,
+    steps: i64
+) -> Vec<i64> {
+    let mut moves = Vec::new();
+
+    for i in 0..steps {
+        let m;
+        if is_reachable_1d(current_pos + current_speed, current_speed, target, steps - i - 1) {
+            m = 0;
+        }
+        else {
+            let future_pos = current_pos + current_speed * (steps - i);
+            if future_pos == target {
+                m = 0;
+            }
+            else if future_pos > target {
+                m = -1;
+            }
+            else {
+                m = 1;
+            }
         }
         current_speed += m;
         current_pos += current_speed;
