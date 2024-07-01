@@ -101,13 +101,13 @@ def eval_tokens(tokens, ctx: dict[str, np.array]):
             case lex.Binary.Div:
                 v1 = eval_head(arg1, ctx)
                 v2 = eval_head(arg2, ctx)
-                s1 = v1 // abs(v1)
+                s1 = v1 // abs(v1) if v1 != 0 else 0
                 s2 = v2 // abs(v2)
                 return s1 * s2 * (abs(v1) // abs(v2))
             case lex.Binary.Mod:
                 v1 = eval_head(arg1, ctx)
                 v2 = eval_head(arg2, ctx)
-                s1 = v1 // abs(v1)
+                s1 = v1 // abs(v1) if v1 != 0 else 0
                 s2 = v2 // abs(v2)
                 return s1 * s2 * (abs(v1) % abs(v2))
             case lex.Binary.Less:
