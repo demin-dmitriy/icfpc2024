@@ -716,6 +716,33 @@ fn move_to_exact(
     None
 }
 
+pub fn solve_same_order_exact_move(positions: Vec<Pos>) -> Option<Vec<Step>>  {
+    let mut all_moves = Vec::new();
+    let mut current_pos = Pos{x: 0, y: 0};
+    let mut current_speed = Pos{x: 0, y: 0};
+ 
+    for pos in &positions {
+        let dist = step_distance(&current_pos, &current_speed, &pos);
+
+        let new_moves =  move_using_n_steps(
+            current_pos, 
+            current_speed, 
+            &pos, 
+            dist
+        );
+
+        all_moves.extend_from_slice(&new_moves);
+        current_pos = all_moves.last().unwrap().result_pos;
+        current_speed = all_moves.last().unwrap().result_speed;
+
+        if all_moves.len() > MOVE_LIMIT {
+            return None;
+        }
+    }
+
+    Some(all_moves)
+}
+
 pub fn solve_greedy_quadtree_exact_min_and_towards(positions: Vec<Pos>) -> Option<Vec<Step>>  {
     let mut all_moves = Vec::new();
     let mut current_pos = Pos{x: 0, y: 0};
