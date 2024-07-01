@@ -49,7 +49,7 @@ class Lambdaman:
 
     def task_to_text(self, task = None):
         return '\n'.join(
-            ' '.join(
+            ''.join(
                 el
                 for el in row
             )
