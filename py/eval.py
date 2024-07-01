@@ -127,6 +127,7 @@ def eval_tokens(tokens, ctx: dict[str, np.array]):
             case lex.Binary.Drop:
                 return eval_head(arg2, ctx)[eval_head(arg1, ctx):]
             case lex.Binary.Apply:
+                #return eval_head(arg1, ctx)(eval_head(arg2, ctx))
                 return eval_head(arg1, ctx)(Lazy(None, arg2, ctx))
             case lex.Unary.Neg:
                 return -eval_head(arg1, ctx)
@@ -281,4 +282,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
