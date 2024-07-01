@@ -296,8 +296,6 @@
 <circle cx="-174" cy="-174" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="-174" y1="-174" x2="-173" y2="-174" stroke="black" stroke-width="0.1" />
 <circle cx="-173" cy="-174" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
-<line x1="-173" y1="-174" x2="-173" y2="-174" stroke="black" stroke-width="0.1" />
-<circle cx="-173" cy="-174" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="-173" y1="-174" x2="-173" y2="-173" stroke="black" stroke-width="0.1" />
 <circle cx="-173" cy="-173" r="0.1" fill="green" stroke="none" stroke-width="0.2"/>
 <line x1="-173" y1="-173" x2="-172" y2="-172" stroke="black" stroke-width="0.1" />
