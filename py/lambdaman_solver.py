@@ -3,6 +3,7 @@ from tsp import solve_tsp
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import construct_dist_matrix, shortest_path
 import numpy as np
+import time
 
 from itertools import pairwise
 from pathlib import Path
@@ -32,18 +33,27 @@ class Lambdaman:
             for i, point in enumerate(self.points)
         }
 
-        print('adjency_matrix')
-        self.__calc_adjency_matrix()
-        print('distance matrix')
-        self.__calc_distance_matrix()
+    def get_distance_matrix(self):
+        if not hasattr(self, 'distance_matrix'):
+            self.__calc_adjency_matrix()
+            self.__calc_distance_matrix()
 
-    def task_to_text(self):
+        return self.distance_matrix
+
+    def get_predecessors(self):
+        if not hasattr(self, 'distance_matrix'):
+            self.__calc_adjency_matrix()
+            self.__calc_distance_matrix()
+
+        return self.predecessors
+
+    def task_to_text(self, task = None):
         return '\n'.join(
             ''.join(
                 el
                 for el in row
             )
-            for row in self.task
+            for row in (self.task if task is None else task)
         )
 
 
@@ -63,34 +73,36 @@ class Lambdaman:
         self.adjency_matrix = csr_matrix(adjency_matrix)
 
     def __calc_distance_matrix(self):
-        distance_matrix_float, predecessors = shortest_path(self.adjency_matrix, directed=False, return_predecessors=True, method='FW')
-        self.distance_matrix_float = [
+        distance_matrix, predecessors = shortest_path(self.adjency_matrix, directed=False, return_predecessors=True, method='FW')
+        self.distance_matrix = [
             [
                 int(el)
                 for el in row
             ]
-            for row in distance_matrix_float
+            for row in distance_matrix
         ]
         self.predecessors = predecessors
 
+
     def get_path(self, from_point, to_point) -> list[int]:
+        predecessors = self.get_predecessors()
         result = [to_point]
-        while from_point != self.predecessors[from_point, to_point]:
-            to_point = int(self.predecessors[from_point, to_point])
+        while from_point != predecessors[from_point, to_point]:
+            to_point = int(predecessors[from_point, to_point])
             result.append(to_point)
 
         result.reverse()
 
         return result
 
-    def solve(self, search_parameters = None):
+    def get_tsp_path(self, search_parameters = None):
         distance_matrix = [
             [
                 # skip return to L point
-                int(el) if i != self.L else 0
+                el if i != self.L else 0
                 for i, el in enumerate(row)
             ]
-            for row in self.distance_matrix_float
+            for row in self.get_distance_matrix()
         ]
 
         tsp_solution, cost = solve_tsp(distance_matrix, self.L, search_parameters)
@@ -105,9 +117,15 @@ class Lambdaman:
 
         return solution
 
-    def solution_to_text(self, solution) -> list[str]:
+    def solve_tsp(self, search_parameters = None):
+        path = self.get_tsp_path()
+        return self.points_to_solution(path)
+
+
+    def points_to_solution(self, points: list[int]) -> list[str]:
+        assert points[0] == self.L
         result = []
-        for from_point, to_point in pairwise(solution):
+        for from_point, to_point in pairwise(points):
             (from_0, from_1), (to_0, to_1) = self.points[from_point], self.points[to_point]
 
             match (to_0 - from_0, to_1 - from_1):
@@ -124,3 +142,78 @@ class Lambdaman:
                     assert False
 
         return ''.join(result)
+
+    def apply_solution(self, solution: str) -> list[list[str]]:
+        result = [
+            [
+                el
+                for el in row
+            ]
+            for row in self.task
+        ]
+
+        l = self.points[self.L]
+
+        for next_move in solution:
+            match next_move:
+                case 'R':
+                    next_pos = (l[0], l[1] + 1)
+                case 'L':
+                    next_pos = (l[0], l[1] - 1)
+                case 'U':
+                    next_pos = (l[0] - 1, l[1])
+                case 'D':
+                    next_pos = (l[0] + 1, l[1])
+                case _:
+                    raise(Exception())
+
+            if next_pos in self.pos_to_point:
+                result[l[0]][l[1]] = ' '
+                l = next_pos
+                result[l[0]][l[1]] = 'L'
+
+        return result
+
+    def is_finished_task(self, task):
+        return all(
+            value != '.'
+            for row in task
+            for value in row
+        )
+
+    def is_valid_solution(self, solution: str) -> bool:
+        field = self.apply_solution(solution)
+
+        return self.is_finished_task(field)
+
+    def animate_solution(self, solution: str, destination: Path = Path('solution.txt'), sleep: float = 0.3):
+        result = [
+            [
+                el
+                for el in row
+            ]
+            for row in self.task
+        ]
+
+        l = self.points[self.L]
+
+        for next_move in solution:
+            match next_move:
+                case 'R':
+                    next_pos = (l[0], l[1] + 1)
+                case 'L':
+                    next_pos = (l[0], l[1] - 1)
+                case 'U':
+                    next_pos = (l[0] - 1, l[1])
+                case 'D':
+                    next_pos = (l[0] + 1, l[1])
+                case _:
+                    raise(Exception())
+
+            if next_pos in self.pos_to_point:
+                result[l[0]][l[1]] = ' '
+                l = next_pos
+                result[l[0]][l[1]] = 'L'
+
+                destination.write_text(self.task_to_text(result))
+                time.sleep(sleep)

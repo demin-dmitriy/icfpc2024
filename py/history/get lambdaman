@@ -1,4 +1,4 @@
-YWelcome to the Lambda-Man course.
+Welcome to the Lambda-Man course.
 
 It was the year 2014, and many members of our community worked hard to control Lambda-Man. Now, ten years later, this wonderful event is still memorized by holding a small Lambda-Man competition.
 
@@ -19,27 +19,27 @@ LLLDURRRUDRRURR
 When Lambda-Man is instructed to move into a square containing a wall, nothing happens and the instruction is skipped. Your solution may consist of at most `1,000,000` characters.
 
 The following levels are available:
-* [lambdaman1] Best score: 33.
-* [lambdaman2] Best score: 44.
-* [lambdaman3] Best score: 58.
-* [lambdaman4] Best score: 374.
-* [lambdaman5] Best score: 214.
-* [lambdaman6]
-* [lambdaman7] Best score: 475.
-* [lambdaman8] Best score: 321.
-* [lambdaman9]
-* [lambdaman10]
-* [lambdaman11] Best score: 9997.
-* [lambdaman12] Best score: 10003.
-* [lambdaman13] Best score: 9993.
-* [lambdaman14] Best score: 10011.
-* [lambdaman15] Best score: 9993.
-* [lambdaman16] Best score: 8209.
-* [lambdaman17] Best score: 2922.
-* [lambdaman18] Best score: 14607.
-* [lambdaman19] Best score: 16364.
-* [lambdaman20] Best score: 21934.
-* [lambdaman21]
+* [lambdaman1] Your score: 33. Best score: 33.
+* [lambdaman2] Your score: 44. Best score: 44.
+* [lambdaman3] Your score: 58. Best score: 58.
+* [lambdaman4] Your score: 238. Best score: 112.
+* [lambdaman5] Your score: 159. Best score: 111.
+* [lambdaman6] Your score: 73. Best score: 73.
+* [lambdaman7] Your score: 254. Best score: 112.
+* [lambdaman8] Your score: 183. Best score: 113.
+* [lambdaman9] Your score: 116. Best score: 109.
+* [lambdaman10] Your score: 835. Best score: 113.
+* [lambdaman11] Your score: 3180. Best score: 147.
+* [lambdaman12] Your score: 3180. Best score: 147.
+* [lambdaman13] Your score: 3180. Best score: 147.
+* [lambdaman14] Your score: 3182. Best score: 147.
+* [lambdaman15] Your score: 3180. Best score: 143.
+* [lambdaman16] Your score: 2632. Best score: 153.
+* [lambdaman17] Your score: 856. Best score: 119.
+* [lambdaman18] Your score: 4090. Best score: 144.
+* [lambdaman19] Your score: 5121. Best score: 237.
+* [lambdaman20] Your score: 6486. Best score: 193.
+* [lambdaman21] Your score: 10563. Best score: 141.
 
 To submit a solution, send an ICFP expression that evaluates to:
 
